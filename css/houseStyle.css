@@ -6,6 +6,24 @@ nav ul li:hover, nav ul li.active {
   background-color: #0EBFE9;
 }
 
+#createEventForm label {
+  color: #FFFFFF;
+}
+
+#createEventForm input {
+ color: #FFFFFF;
+}
+
+#createEventForm button {
+ background-color: #0EBFE9;
+}
+
 body {
   background-color: #19A3FF;
 }
+
+h1, h2, h3 {
+  color: #FFFFFF;
+}
+
+
