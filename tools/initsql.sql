@@ -1,23 +1,19 @@
-DROP TABLE UserEmails;
-DROP TABLE UserNames;
-DROP TABLE UserPasswords;
-CREATE TABLE UserNames(ID INTEGER AUTO_INCREMENT,
-                         Name VARCHAR(50),
-                         PRIMARY KEY (ID)
-                         );
-CREATE TABLE UserEmails(ID INTEGER AUTO_INCREMENT,
-                          Email VarChar(50),
-                          PRIMARY KEY (ID)
-                         );
-CREATE TABLE UserPasswords(ID INTEGER AUTO_INCREMENT,
-                             HashPass VarChar(100),
-                             PRIMARY KEY (ID)
-                            ); 
-                        
-CREATE TABLE UserGroups(ID INTEGER AUTO_INCREMENT,
-                             Groups VarChar(2),
-                             PRIMARY KEY (ID)
-                            );
+DROP TABLE IF EXISTS Events;
+DROP TABLE IF EXISTS Users;
 
+CREATE TABLE Events(id INTEGER AUTO_INCREMENT,
+                    name VARCHAR(50),
+                    location VARCHAR(200),
+                    date DATE,
+                    description VARCHAR(240),
+                    PRIMARY KEY (id)
+                    );
+
+CREATE TABLE Users(id INTEGER AUTO_INCREMENT,
+                  name VARCHAR(50),
+                  hashpass VARCHAR(100),
+                  postcode VARCHAR(10),
+                  PRIMARY KEY (id)
+                  );
 
 

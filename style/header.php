@@ -24,7 +24,7 @@
             <a href="index.php"><i class="mdi-action-home"></i>Home</a>
           </li>
           <li>
-            <a href="addEvent.php"><i class="mdi-content-add"></i>Add Event</a>
+            <a href="addevent.php"><i class="mdi-content-add"></i>Add Event</a>
           </li>
           <li>
             <a href="search.php"><i class="mdi-action-search"></i>Search</a>

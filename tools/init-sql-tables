@@ -5,6 +5,6 @@ stty echo
 echo "Connecting to database..."
 echo "Refreshing tables..."
 
-mysql --user=mbax4hw2 --host=dbhost.cs.man.ac.uk --password=$passw mbax4hw2 < initsql.sql
+mysql --user=mbax4hw2 --host=dbhost.cs.man.ac.uk --password=$passw 2014_comp10120_x2 < initsql.sql
 
 echo "Reinit'd tables"
