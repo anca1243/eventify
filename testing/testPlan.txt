@@ -1,0 +1,8 @@
+-Check navigation
+-Check database storing
+-Check database searching
+-Check login
+-Check Event adding
+-Check Map Plotting
+-Check User interaction
+
