@@ -1,0 +1,17 @@
+Entire idea
+ Anca
+Idea in detail
+ Mo 
+V1
+ Anton
+V2
+ Alex
+V3
+V4
+ Harry
+Gantt
+ Anca  
+Tools
+Concerns
+ Eugen
+
