@@ -1,0 +1,9 @@
+.nav-wrapper {
+  background-color: #0147FA;
+}
+
+nav ul li:hover, nav ul li.active {
+  background-color: #0EBFE9;
+}
+
+

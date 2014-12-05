@@ -1,0 +1,10 @@
+stty -echo
+read -p "Password: " passw; 
+stty echo
+
+echo "Connecting to database..."
+echo "Refreshing tables..."
+
+mysql --user=mbax4hw2 --host=dbhost.cs.man.ac.uk --password=$passw mbax4hw2 < initsql.sql
+
+echo "Reinit'd tables"
