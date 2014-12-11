@@ -34,8 +34,18 @@
             <p>Something something yes indeed. 
                Something something else</p>
           </div>
+      </div>
+ <div class=\"css-slideshow\">
+  <figure>
+    <img src=\"class-header-css3.jpg\" width=\"495\" height=\"370\" />
+     <figcaption><strong>CSS3:</strong> CSS3 delivers a...</figcaption>
+  </figure>
+  <figure>
+    <img src=\"class-header-semantics.jpg\" width=\"495\" height=\"370\" />
+    <figcaption><strong>Semantics:</strong> Giving meaning to...</figcaption>
+  </figure>
+</div>";
 
-          </div>";
   } else {
     //If they are logged in, show the user events happening today
     require("geoIP.php");

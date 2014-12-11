@@ -1,9 +1,38 @@
+.css-slideshow{
+   position: relative;
+   max-width: 495px;
+   height: 370px;
+   margin: 5em auto .5em auto;
+}
+.css-slideshow figure{
+   margin: 0;
+   position: absolute;
+}
+.css-slideshow figcaption{
+   position: absolute;
+   top: 0;
+   color: #fff;
+   background: rgba(0,0,0, .3);
+   font-size: .8em;
+   padding: 8px 12px;
+   opacity: 0;
+   transition: opacity .5s;
+}
+.css-slideshow:hover figure figcaption{
+   transition: opacity .5s;
+   opacity: 1;
+}
+.css-slideshow figure{
+   opacity:0;
+}
+
 #content {
   padding: 10px 20px 10px 20px;
 }
 
 .nav-wrapper {
-  background-color: #0147FA;
+  background-color: #000000;
+  background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
 }
 
 .welcome {
@@ -11,7 +40,8 @@
 }
 
 nav ul li:hover, nav ul li.active {
-  background-color: #0EBFE9;
+  background-color: #000000;
+  background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
 }
 
 #icon {
@@ -34,6 +64,7 @@ nav ul li:hover, nav ul li.active {
 
 #createEventForm button {
  background-color: #0EBFE9;
+ background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
 }
 
 #searchForm input {
@@ -60,7 +91,11 @@ nav ul li:hover, nav ul li.active {
 }
 
 body {
-  background-color: #19A3FF;
+  background-color: #212121;
+  background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
 }
 
 h1, h2, h3, h4, h5 {
@@ -78,3 +113,13 @@ h1, h2, h3, h4, h5 {
 #fbPicture {
   padding: 10px 10px 10px 10px;
 }
+
+
+
+
+
+
+
+
+
+
