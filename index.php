@@ -3,7 +3,7 @@
   <title>Eventify!</title>
   <?php require("style/linkcss.php"); ?>
  </head>
- <body>
+ <body id=\"myPhoto\" src=\"http://www.ultralightinghire.co.uk/media/IMG_3397.jpg\" alt=\"party newparty\">
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php");
@@ -35,15 +35,12 @@
                Something something else</p>
           </div>
       </div>
- <div class=\"css-slideshow\">
-  <figure>
-    <img src=\"class-header-css3.jpg\" width=\"495\" height=\"370\" />
-     <figcaption><strong>CSS3:</strong> CSS3 delivers a...</figcaption>
-  </figure>
-  <figure>
-    <img src=\"class-header-semantics.jpg\" width=\"495\" height=\"370\" />
-    <figcaption><strong>Semantics:</strong> Giving meaning to...</figcaption>
-  </figure>
+ // <img id=\"myPhoto\" src=\"http://www.ultralightinghire.co.uk/media/IMG_3397.jpg\" alt=\"party newparty\"/>
+<script src=\"slideshow.js\"></script>
+ <div id=\"container\">
+ <div id=\"content\"></div>
+</div>
+<div id=\"footer\"> © 2014 Copyright X2</div>
 </div>";
 
   } else {
