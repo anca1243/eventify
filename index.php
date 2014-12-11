@@ -3,7 +3,7 @@
   <title>Eventify!</title>
   <?php require("style/linkcss.php"); ?>
  </head>
- <body id=\"myPhoto\" src=\"http://www.ultralightinghire.co.uk/media/IMG_3397.jpg\" alt=\"party newparty\">
+ <boy id=\"myPhoto\" src=\"http://www.ultralightinghire.co.uk/media/IMG_3397.jpg\" alt=\"party newparty\">
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php");

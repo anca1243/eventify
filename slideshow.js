@@ -7,8 +7,8 @@ var imageIndex=0;
 function changeImage () {
   myPhoto.setAttribute("src", imageArray [ imageIndex]);
 imageIndex++;
-if (image>=imageArray.length) {
-  imageIndex=imageArray.length;
+if (imageIndex>=imageArray.length) {
+  imageIndex=0;
   }
 }
 
