@@ -3,7 +3,7 @@
  
 <!--Nav bar-->
 <nav>
- <div class="nav-wrapper">
+ <div class="nav-wrapper" name="navbar">
   <a href="index.php" class="brand-logo">LOGO</a>
   <ul id="nav-mobile" class="right-side-nav">
    <li>
