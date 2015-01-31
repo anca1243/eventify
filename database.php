@@ -76,20 +76,6 @@
     while ($row = $result->fetch_assoc()) {
         array_push($results, $row);
     }
-    $con = connect();
-    $sql = "SELECT * FROM CouncilEvents WHERE 1=1 ";
-    if (!no_val($name)) $sql.= " AND `name` LIKE '%".mysqli_real_escape_string($con, $name)."%'";
-    if (!no_val($location)) $sql.= " AND `location`LIKE '%".mysqli_real_escape_string($con, $location)."%'";
-    if (!no_val($date))  $sql.= " AND `date` LIKE '%".mysqli_real_escape_string($con, $date)."%'";
-    if (!no_val($desc))  $sql.= " AND (`description` LIKE '".getTerms($desc).")";
-    if (!no_val($postcode))  $sql.= " AND `postcode`LIKE '%".mysqli_real_escape_string($con, $postcode)."%'";
-    if (!$stmt = $con->prepare($sql)) { echo "SQL incorrect or injection attempt."; die; }
-    if (!$stmt->execute()) { echo "Query Failed"; die; }
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        array_push($results, $row);
-    }
- 
     return $results;
   }
   ?>
