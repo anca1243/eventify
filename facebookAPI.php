@@ -58,6 +58,8 @@
   require( 'facebook/src/Facebook/FacebookAuthorizationException.php' );
   require( 'facebook/src/Facebook/GraphObject.php' );
   require( 'facebook/src/Facebook/GraphSessionInfo.php' );
+  require( 'facebook/src/Facebook/HttpClients/FacebookStreamHttpClient.php' );
+  require( 'facebook/src/Facebook/HttpClients/FacebookStream.php' );
   use Facebook\HttpClients\FacebookHttpable;
   use Facebook\HttpClients\FacebookCurl;
   use Facebook\HttpClients\FacebookCurlHttpClient;
@@ -73,6 +75,8 @@
   use Facebook\FacebookAuthorizationException;
   use Facebook\GraphObject;
   use Facebook\GraphSessionInfo;
+  use Facebook\HttpClients\FacebookStreamHttpClient;
+  use Facebook\HttpClients\FacebookStream;
   session_start();
   FacebookSession::setDefaultApplication('837275619665461','6aafcab796d6f35bd3eeca0b2ea31586');
   $helper = new FacebookRedirectLoginHelper('http://192.168.0.103/index.php' );
@@ -105,6 +109,6 @@
   } else {
     // show login url
     echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';
-  }
+  } 
 
 ?>
