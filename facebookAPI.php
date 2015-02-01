@@ -42,7 +42,7 @@
 <?php
   // Skip these two lines if you're using Composer
   define('FACEBOOK_SDK_V4_SRC_DIR', '/facebook/src/Facebook/');
-  require __DIR__ . '/facebook/autoload.php';
+  require __DIR__ .  '/facebook/autoload.php';
   require( 'facebook/src/Facebook/HttpClients/FacebookHttpable.php' );
   require( 'facebook/src/Facebook/HttpClients/FacebookCurl.php' );
   require( 'facebook/src/Facebook/HttpClients/FacebookCurlHttpClient.php' );
@@ -104,8 +104,11 @@
     // print data
     $userData = $graphObject->asArray();
     echo '<a href="logout.php"><i class="mdi-navigation-close">';
-    echo '</i>Logout</a><div id="fbPicture">'.$userData['first_name'].' '.$userData['last_name'].'&nbsp&nbsp';
-    echo '<img src="//graph.facebook.com/'.$userData["id"].'/picture"></div>';
+    echo '</i>Logout</a><a href=user.php?id="'.$userData['id'];
+    echo '"><div id="fbPicture"><a href=user.php?id="'.$userData['id'].'">';
+    echo $userData['first_name'].'&nbsp';
+    echo $userData['last_name'].'&nbsp&nbsp';
+    echo '<img src="//graph.facebook.com/'.$userData["id"].'/picture"></a></div>';
   } else {
     // show login url
     echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';
