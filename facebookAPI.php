@@ -5,7 +5,7 @@
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId: '837275619665461', 
+      appId: facebook_appID, 
       status: true,
          cookie: true,
          xfbml: true,
@@ -78,8 +78,9 @@
   use Facebook\HttpClients\FacebookStreamHttpClient;
   use Facebook\HttpClients\FacebookStream;
   session_start();
-  FacebookSession::setDefaultApplication('837275619665461','6aafcab796d6f35bd3eeca0b2ea31586');
-  $helper = new FacebookRedirectLoginHelper('http://192.168.0.103/index.php' );
+  //require("config.php");
+  FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
+  $helper = new FacebookRedirectLoginHelper($url);
   if (isset($_SESSION["session"]))
     $session = $_SESSION["session"]; 
   if (!isset($session)) {
