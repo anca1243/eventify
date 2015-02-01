@@ -1,6 +1,6 @@
 <!--Import config-->
 <?php require("config.php"); ?>
- 
+<meta charset="UTF-8"> 
 <!--Nav bar-->
 <div class="navbar-fixed">
 <nav>
