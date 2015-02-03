@@ -10,7 +10,7 @@ nav ul li:hover, nav ul li.active {
   background-color: #0EBFE9;
 }
 
-#createEventForm label {
+.eventForm label {
   color: #FFFFFF;
 }
 
@@ -30,4 +30,7 @@ h1, h2, h3 {
   color: #FFFFFF;
 }
 
+#searchResults a {
+  color: #000000;
+}
 

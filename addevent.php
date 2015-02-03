@@ -34,7 +34,7 @@
    </script>  
   <div id="content">
    <h1>Add event</h1>
-   <div id="createEventForm">
+   <div id="createEventForm" class="eventform">
     <form id="eventInfo" action="#" method="post">
      <div class="input-field">
        <label for="evtitle">Event Title</label>
