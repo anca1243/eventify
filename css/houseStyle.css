@@ -34,3 +34,6 @@ h1, h2, h3 {
   color: #000000;
 }
 
+.fb-login-button {
+  padding: 15px 10px 10px 10px;
+}

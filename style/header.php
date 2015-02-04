@@ -16,6 +16,9 @@
    <li>
     <a href="search.php"><i class="mdi-action-search"></i>Search</a>
    </li>
+   <li>
+    <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+   </li>
   </ul>
  </div>
 </nav>
