@@ -98,7 +98,10 @@
     $graphObject = $response->getGraphObject();
     $_SESSION["session"] = $session;
     // print data
-    echo '<a href="logout.php"><i class="mdi-navigation-close"></i>Logout</a>';
+    $userData = $graphObject->asArray();
+    echo '<a href="logout.php"><i class="mdi-navigation-close">';
+    echo '</i>Logout</a><div id="fbPicture">'.$userData['first_name'].' '.$userData['last_name'].'&nbsp&nbsp';
+    echo '<img src="//graph.facebook.com/'.$userData["id"].'/picture"></div>';
   } else {
     // show login url
     echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';

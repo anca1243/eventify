@@ -37,3 +37,7 @@ h1, h2, h3 {
 .fb-login-button {
   padding: 15px 10px 10px 10px;
 }
+
+#fbPicture {
+  padding: 10px 10px 10px 10px;
+}
