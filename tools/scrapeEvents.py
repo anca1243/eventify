@@ -74,6 +74,14 @@ while True:
       break
 browser.close()
 
+def notin(table, obj):
+    for i in table:
+        if i[1] == obj.getTitle() and i[2] == obj.getLocation():
+            if i[3] == obj.getDate() and i[4] == obj.getDesc():
+                if i[5] == obj.getPostCode():
+                    return False
+    return True
+
 import MySQLdb
 
 db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
@@ -86,19 +94,16 @@ db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
 cur = db.cursor() 
 
 # Use all the SQL you like
-cur.execute("DROP TABLE IF EXISTS CouncilEvents")
-cur.execute("""CREATE TABLE CouncilEvents(id INTEGER AUTO_INCREMENT,
-                                           name VARCHAR(200),
-                                           location VARCHAR(200),
-                                           date VARCHAR(200),
-                                           description VARCHAR(500),
-                                           postcode VARCHAR(20),
-                                           PRIMARY KEY (id)
-                                           );""")
+#Get all events
+cur.execute("SELECT * FROM Events");
+existing = cur.fetchall()
+commited = []
 for i in events:
-    cur.execute("""INSERT INTO CouncilEvents
-                (`name`, `location`, `date`, `description`,`postcode`)
-                VALUES (%s,%s,%s,%s,%s)""", [i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
+    if notin(existing, i) and notin(commited, i):
+        commited.append(i)
+        cur.execute("""INSERT INTO Events
+                    (`name`, `location`, `date`, `description`,`postcode`)
+                    VALUES (%s,%s,%s,%s,%s)""", [i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
 db.commit()
 db.close()
     
