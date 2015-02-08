@@ -5,7 +5,10 @@ import sys
 import webbrowser
 import time
 
-url = "http://"+sys.argv[1]
+url = raw_input("URL to test: ")
+if "http" not in url:
+  url = "http://"+url
+
 print url
 
 class EventifyTestCase(unittest.TestCase):
