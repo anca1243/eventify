@@ -78,7 +78,7 @@ def notin(table, obj):
     for i in table:
         if i[1] == obj.getTitle() and i[2] == obj.getLocation():
             if i[3] == obj.getDate() and i[4] == obj.getDesc():
-                if i[5] == obj.getPostCode():
+                if i[5] == obj.getPostcode():
                     return False
     return True
 
@@ -100,7 +100,7 @@ existing = cur.fetchall()
 commited = []
 for i in events:
     if notin(existing, i) and notin(commited, i):
-        commited.append(i)
+        commited.append([None, i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
         cur.execute("""INSERT INTO Events
                     (`name`, `location`, `date`, `description`,`postcode`)
                     VALUES (%s,%s,%s,%s,%s)""", [i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
