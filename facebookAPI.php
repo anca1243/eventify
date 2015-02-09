@@ -78,8 +78,8 @@
   use Facebook\HttpClients\FacebookStreamHttpClient;
   use Facebook\HttpClients\FacebookStream;
   session_start();
-  require("config.php");
-  FacebookSession::setDefaultApplication($facebook_appid, $facebook_appsec);
+  //require("config.php");
+  FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
   $helper = new FacebookRedirectLoginHelper($url);
   if (isset($_SESSION["session"]))
     $session = $_SESSION["session"]; 
