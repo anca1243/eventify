@@ -1,93 +1,64 @@
-from selenium import webdriver
-import time
-from selenium.webdriver.common.keys import Keys
+import urllib2, re
 
-#open a browser
-try:
-    browser = webdriver.Firefox()
-except:
-    browser = webdriver.Chrome()
+domain = "https://secure.manchester.gov.uk"
+cgiAddr ="/site/custom_scripts/events_search.php"
+searchURL = "?searchresults=yes&dateType=anydate"
+searchURL += "&date=&startDate=&endDate=&location=Anywhere&offset="
+eventURL = "?hideform=yes&displayevent=yes&eventid="
 
-url = "https://secure.manchester.gov.uk"
-url +="/site/custom_scripts/events_search.php?"
-url += "searchresults=yes&dateType=anydate"
-url += "&date=&startDate=&endDate=&location=Anywhere&offset="
-
-class event():
-    def __init__(self, title, desc, loc, post, date):
-        self.title = title
-        self.desc = desc.split("Learn")[0]
-        self.loc = loc
-        self.post = post
-        self.date = date
-    def getTitle(self):
-        return self.title
-    def getLocation(self):
-        return self.loc
-    def getPostcode(self):
-        return self.post
-    def getDate(self):
-        return self.date
-    def getDesc(self):
-        return self.desc
-
-def sleep(a):
-    time.sleep(a)
-
-    
-def addPage(offset):
-    print "Scraping page "+str(offset)
-    events = []
-    browser.get(url + str(offset*10))
-    eventList =  [x.text.split("\n")[0]
-                for x in browser.find_elements_by_class_name("news-item")]
-    for i in range(len(eventList)):
-        browser.get(url + str(offset*10))
-        title = eventList[i]
-        link = browser.find_element_by_link_text(title)
-        link.click()
-        sleep(0.5)
-        date = browser.find_element_by_xpath("//div[@id='content']/section/aside/ul/li[1]").text
-        location = browser.find_element_by_xpath("//div[@id='content']/section/aside/ul/li[2]").text
-        post = location.split(",")[-1]
-        time = browser.find_element_by_xpath("//div[@id='content']/section/aside/ul/li[3]").text
-        desc = browser.find_element_by_xpath("//div[@id='content']/section/article").text
-        events.append(event(title, desc, location, post, date))
-    return events
-  
-
-currentPage = 0
-
+HTMLSource = ""
 events = []
-                
-while True:
-    try:
-      newpage = addPage(currentPage)
-      for i in newpage:
-          events.append(i)
-      if len(newpage) == 0:
-        break
-      currentPage +=1
-    except Exception as ex:
-      print ex
-      #Reached end of events
-      break
-browser.close()
+url = domain + cgiAddr + searchURL
+while url:
+	page = urllib2.urlopen(url)
+	try:
+		HTMLSource = page.read()
+	except:
+		pass
+	finally:
+		page.close()
+	eventURLs = re.findall(cgiAddr + '\\' + eventURL + '\d*', HTMLSource)
+	for event in eventURLs:
+		evPage = urllib2.urlopen(domain + event)
+		try:
+			evSource = evPage.read()
+		except:
+			pass
+		finally:
+			evPage.close()
+		evDetails = []
+		evSource = evSource[re.search('<div id="content"', evSource).start():].split('</section')[0]
+		title = re.search('<h\d>(.*?)</h\d', evSource).group(1)
+		date = re.search('<span class="icon-calendar"></span>(.*?)</li', evSource, re.S).group(1)
+		location = re.search('<span class="icon-location"></span>(.*?)</li', evSource).group(1)
+		post = location.split(',')[-1]
+		try:
+			time = re.search('<span class="icon-clock"></span>(.*?)</li', evSource).group(1)
+		except:
+			time = ''
+		desc = re.search('<article.*?>(.*?)</article', evSource, re.S).group(1)
+		events.append([title, desc, location, post, date])
+
+	url = re.search('(' + cgiAddr + '\\' + searchURL + '\d*)">Next Page >>', HTMLSource)
+	if url != None:
+		url = domain + url.group(1)
+	else:
+		url = False
 
 def notin(table, obj):
     for i in table:
-        if i[1] == obj.getTitle() and i[2] == obj.getLocation():
-            if i[3] == obj.getDate() and i[4] == obj.getDesc():
-                if i[5] == obj.getPostcode():
+        if i[1] == obj[0] and i[2] == obj[2]:
+            if i[3] == obj[4] and i[4] == obj[1]:
+                if i[5] == obj[3]:
                     return False
     return True
 
 import MySQLdb
 
 db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
-                     user="mbax4hw2", # your username
-                      passwd="BestTeam2014", # your password
-                      db="2014_comp10120_x2") # name of the data base
+                     user="mbyx2ac2", # your username
+                      passwd="obnoxious", # your password
+                      db="mbyx2ac2") # name of the data base
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
@@ -100,14 +71,9 @@ existing = cur.fetchall()
 commited = []
 for i in events:
     if notin(existing, i) and notin(commited, i):
-        commited.append([None, i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
+        commited.append([None, i[0], i[2], i[4], i[1], i[3]])
         cur.execute("""INSERT INTO Events
                     (`name`, `location`, `date`, `description`,`postcode`)
-                    VALUES (%s,%s,%s,%s,%s)""", [i.getTitle(), i.getLocation(), i.getDate(), i.getDesc(), i.getPostcode()])
+                    VALUES (%s,%s,%s,%s,%s)""", [i[0], i[2], i[4], i[1], i[3]])
 db.commit()
 db.close()
-    
-
-    
-    
-
