@@ -1,4 +1,12 @@
-import urllib2, re
+import urllib2, re, getpass
+##DETERMINE WHICH DB
+group = raw_input("Group DB? (y/n) ")
+if group == "n":
+	db_name = raw_input("Username: ")
+else:
+	db_name = "2014_comp10120_x2"
+
+passW = getpass.getpass()
 
 domain = "https://secure.manchester.gov.uk"
 cgiAddr ="/site/custom_scripts/events_search.php"
@@ -56,9 +64,9 @@ def notin(table, obj):
 import MySQLdb
 
 db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
-                     user="mbyx2ac2", # your username
-                      passwd="obnoxious", # your password
-                      db="mbyx2ac2") # name of the data base
+                     user=db_name, # your username
+                      passwd=passW, # your password
+                      db=db_name) # name of the data base
 
 # you must create a Cursor object. It will let
 #  you execute all the queries you need
@@ -69,6 +77,7 @@ cur = db.cursor()
 cur.execute("SELECT * FROM Events");
 existing = cur.fetchall()
 commited = []
+
 for i in events:
     if notin(existing, i) and notin(commited, i):
         commited.append([None, i[0], i[2], i[4], i[1], i[3]])
