@@ -80,9 +80,14 @@ commited = []
 
 for i in events:
     if notin(existing, i) and notin(commited, i):
+	i[1] = i[1].strip().replace("<h2>","")
+	for j in range(len(i)):
+		i[j] = i[j].strip()
+
         commited.append([None, i[0], i[2], i[4], i[1], i[3]])
         cur.execute("""INSERT INTO Events
-                    (`name`, `location`, `date`, `description`,`postcode`)
-                    VALUES (%s,%s,%s,%s,%s)""", [i[0], i[2], i[4], i[1], i[3]])
+                    (`name`, `location`, `date`, `description`,`postcode`,`createdBy`)
+                    VALUES (%s,%s,%s,%s,%s,%s)""", 
+                    [i[0], i[2], i[4], i[1], i[3], "71409503111"])
 db.commit()
 db.close()

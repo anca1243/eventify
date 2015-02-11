@@ -7,6 +7,7 @@ CREATE TABLE Events(id INTEGER AUTO_INCREMENT,
                     date VARCHAR(50),
                     description VARCHAR(240),
                     postcode VARCHAR(10),
+                    createdBy VARCHAR(30),
                     PRIMARY KEY (id)
                     );
 
