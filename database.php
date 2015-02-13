@@ -1,6 +1,6 @@
 <?php
   //Set up databse connection
-  
+  require("dates.php"); 
   function connect() {
     require("config.php");
     $database_host = $group_dbnames[0];
@@ -44,7 +44,7 @@
      echo "<td>".$row['name']."</td>";
      echo "<td>".$row['description']."</td>";
      echo "<td>".$row['date']."</td>";
-     echo stringToDate($row['date']);
+     stringToDate($row['date']);
      echo "<td>".$row['postcode']."</td></tr>";
    }
    echo "</tbody>
