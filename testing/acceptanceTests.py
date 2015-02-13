@@ -37,7 +37,7 @@ class EventifyTestCase(unittest.TestCase):
     self.assertIn("Eventify!", self.browser.title)
 
   def testEventCreation(self):
-    self.browser.get(url + "addevent.php")
+    self.browser.get(url + "/addevent.php")
     title = self.browser.find_element_by_id("evtitle")
     desc = self.browser.find_element_by_id("evdescription")
     loc = self.browser.find_element_by_id("evlocation")

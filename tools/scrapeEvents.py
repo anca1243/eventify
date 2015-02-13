@@ -1,8 +1,10 @@
 import urllib2, re, getpass
 ##DETERMINE WHICH DB
 group = raw_input("Group DB? (y/n) ")
+user_name = raw_input("Username: ")
+
 if group == "n":
-	db_name = raw_input("Username: ")
+	db_name = user_name
 else:
 	db_name = "2014_comp10120_x2"
 
@@ -64,7 +66,7 @@ def notin(table, obj):
 import MySQLdb
 
 db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
-                     user=db_name, # your username
+                     user=user_name, # your username
                       passwd=passW, # your password
                       db=db_name) # name of the data base
 

@@ -44,6 +44,7 @@
      echo "<td>".$row['name']."</td>";
      echo "<td>".$row['description']."</td>";
      echo "<td>".$row['date']."</td>";
+     echo stringToDate($row['date']);
      echo "<td>".$row['postcode']."</td></tr>";
    }
    echo "</tbody>

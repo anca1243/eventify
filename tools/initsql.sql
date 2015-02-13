@@ -2,12 +2,12 @@ DROP TABLE IF EXISTS Events;
 DROP TABLE IF EXISTS Users;
 
 CREATE TABLE Events(id INTEGER AUTO_INCREMENT,
-                    name VARCHAR(50),
-                    location VARCHAR(200),
-                    date VARCHAR(50),
-                    description VARCHAR(240),
-                    postcode VARCHAR(10),
-                    createdBy VARCHAR(30),
+                    name TEXT,
+                    location TEXT,
+                    date TEXT,
+                    description TEXT,
+                    postcode TEXT,
+                    createdBy TEXT ,
                     PRIMARY KEY (id)
                     );
 
