@@ -1,8 +1,10 @@
 import urllib2, re, getpass
 ##DETERMINE WHICH DB
 group = raw_input("Group DB? (y/n) ")
+user_name = raw_input("Username: ")
+
 if group == "n":
-	db_name = raw_input("Username: ")
+	db_name = user_name
 else:
 	db_name = "2014_comp10120_x2"
 
@@ -64,7 +66,7 @@ def notin(table, obj):
 import MySQLdb
 
 db = MySQLdb.connect(host="dbhost.cs.man.ac.uk", # your host, usually localhost
-                     user=db_name, # your username
+                     user=user_name, # your username
                       passwd=passW, # your password
                       db=db_name) # name of the data base
 
@@ -78,11 +80,25 @@ cur.execute("SELECT * FROM Events");
 existing = cur.fetchall()
 commited = []
 
+import datetime
+
 for i in events:
+    #Get rid of the h2s
+    i[1] = i[1].replace("<h2>","").replace("</h2>","")
+    for j in range(len(i)):
+        i[j] = i[j].strip().replace("Back to search results","")
     if notin(existing, i) and notin(commited, i):
         commited.append([None, i[0], i[2], i[4], i[1], i[3]])
+        date = i[4].split("-")
+        unixTimes = []
+        for j in date:
+ 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%A %d %B %Y")
+		unixTimes.append(int((dt - datetime.datetime(1970,1,1)).total_seconds())) 
+        if len(unixTimes) == 1:
+		unixTimes.append(unixTimes[0])
+
         cur.execute("""INSERT INTO Events
-                    (`name`, `location`, `date`, `description`,`postcode`)
-                    VALUES (%s,%s,%s,%s,%s)""", [i[0], i[2], i[4], i[1], i[3]])
+                    (`name`, `location`, `startDate`, `endDate`, `description`,`postcode`)
+                    VALUES (%s,%s,%s,%s,%s,%s)""", [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3]])
 db.commit()
 db.close()

@@ -1,6 +1,6 @@
 <?php
   //Set up databse connection
-  
+  require("dates.php"); 
   function connect() {
     require("config.php");
     $database_host = $group_dbnames[0];
@@ -30,20 +30,22 @@
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='id'>ID</th>
               <th data-field='name'>Title</th>
               <th data-field='desc'>Description</th>
-              <th data-field='date'>Date</th>
+              <th data-field='sdate'>Start Date</th>
+              <th data-field='edate'>End Date</th>
               <th data-field='loc'>Location</th>
             </tr>
         </thead>
 
         <tbody>";
    foreach ($a as $row) {
-     echo "<tr><td><a href=event.php?id=".$row['id'].">".$row['id']."</td>";
-     echo "<td>".$row['name']."</td>";
-     echo "<td>".$row['description']."</td>";
-     echo "<td>".$row['date']."</td>";
+     echo "<tr>";
+     echo "<td><a href=event.php?id=".$row['id'].">".$row['name']."</td>";
+     $desc = explode("\n",$row['description']);
+     echo "<td>".$desc[0]."</td>";
+     echo "<td>".date("d M y",$row['startDate'])."</td>";
+     echo "<td>".date("d M y",$row["endDate"])."</td>";
      echo "<td>".$row['postcode']."</td></tr>";
    }
    echo "</tbody>
@@ -66,7 +68,10 @@
     $sql = "SELECT * FROM Events WHERE 1=1 ";
     if (!no_val($name)) $sql.= " AND `name` LIKE '%".mysqli_real_escape_string($con, $name)."%'";
     if (!no_val($location)) $sql.= " AND `location`LIKE '%".mysqli_real_escape_string($con, $location)."%'";
-    if (!no_val($date))  $sql.= " AND `date` LIKE '%".mysqli_real_escape_string($con, $date)."%'";
+    if (!no_val($date))  {
+                           $sDate = stringToDate($date);
+                           $sql.= " AND `startDate` <=".$sDate[0]." AND `endDate` >=".$sDate[1];
+    } 
     if (!no_val($desc))  $sql.= " AND (`description` LIKE '".getTerms($desc).")";
     if (!no_val($postcode))  $sql.= " AND `postcode`LIKE '%".mysqli_real_escape_string($con, $postcode)."%'";
     if (!$stmt = $con->prepare($sql)) { echo "SQL incorrect or injection attempt."; die; }
