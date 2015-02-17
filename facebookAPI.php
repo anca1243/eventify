@@ -41,25 +41,8 @@
 
 <?php
   // Skip these two lines if you're using Composer
-  define('FACEBOOK_SDK_V4_SRC_DIR', '/facebook/src/Facebook/');
-  require __DIR__ .  '/facebook/autoload.php';
-  require( 'facebook/src/Facebook/HttpClients/FacebookHttpable.php' );
-  require( 'facebook/src/Facebook/HttpClients/FacebookCurl.php' );
-  require( 'facebook/src/Facebook/HttpClients/FacebookCurlHttpClient.php' );
-  require( 'facebook/src/Facebook/Entities/AccessToken.php' );
-  require( 'facebook/src/Facebook/Entities/SignedRequest.php' );
-  require( 'facebook/src/Facebook/FacebookSession.php' );
-  require( 'facebook/src/Facebook/FacebookRedirectLoginHelper.php' );
-  require( 'facebook/src/Facebook/FacebookRequest.php' );
-  require( 'facebook/src/Facebook/FacebookResponse.php' );
-  require( 'facebook/src/Facebook/FacebookSDKException.php' );
-  require( 'facebook/src/Facebook/FacebookRequestException.php' );
-  require( 'facebook/src/Facebook/FacebookOtherException.php' );
-  require( 'facebook/src/Facebook/FacebookAuthorizationException.php' );
-  require( 'facebook/src/Facebook/GraphObject.php' );
-  require( 'facebook/src/Facebook/GraphSessionInfo.php' );
-  require( 'facebook/src/Facebook/HttpClients/FacebookStreamHttpClient.php' );
-  require( 'facebook/src/Facebook/HttpClients/FacebookStream.php' );
+  require("import.php");
+  
   use Facebook\HttpClients\FacebookHttpable;
   use Facebook\HttpClients\FacebookCurl;
   use Facebook\HttpClients\FacebookCurlHttpClient;
@@ -104,15 +87,28 @@
     $_SESSION["session"] = $session;
     // print data
     $userData = $graphObject->asArray();
-    echo '<a href="logout.php"><i class="mdi-navigation-close">';
-    echo '</i>Logout</a><a href=user.php?id="'.$userData['id'];
-    echo '"><div id="fbPicture"><a href=user.php?id="'.$userData['id'].'">';
+    echo '<a href="logout.php"><i class="mdi-navigation-close"></i>';
+    echo 'Logout</a></li>';
+    echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">';
+    echo '<img src=\'//graph.facebook.com/'.$userData["id"].'/picture\'>';
     echo $userData['first_name'].'&nbsp';
-    echo $userData['last_name'].'&nbsp&nbsp';
-    echo '<img src="//graph.facebook.com/'.$userData["id"].'/picture"></a></div>';
+    echo $userData['last_name'].'&nbsp&nbsp</a></div></li>';
   } else {
     // show login url
     echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';
   } 
+
+function fbRequest($req) {
+  if (!isset($_SESSION['session'])) {
+      echo "<p>You must be logged in to do that.\n <a href='index.html'>Go back to homepage</a></p>";
+      die;
+  } else {
+      $session = $_SESSION['session'];
+      $request = new FacebookRequest($session, "GET", "/".$req);
+      $response = $request->execute();
+      $response =  $response->getGraphObject()->asArray();
+      return $response;
+    }
+}
 
 ?>
