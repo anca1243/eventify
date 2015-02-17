@@ -11,6 +11,7 @@ function stringToDate($a) {
   if ($i == 1) {
     $a[1] = $lastVal;
   }
+
   return( $a );
 }
 

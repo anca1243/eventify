@@ -40,6 +40,7 @@
 
         <tbody>";
    foreach ($a as $row) {
+
      echo "<tr>";
      echo "<td><a href=event.php?id=".$row['id'].">".$row['name']."</td>";
      $desc = explode("\n",$row['description']);

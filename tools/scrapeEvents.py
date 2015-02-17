@@ -88,6 +88,10 @@ for i in events:
     for j in range(len(i)):
         i[j] = i[j].strip().replace("Back to search results","")
     if notin(existing, i) and notin(commited, i):
+	i[1] = i[1].strip().replace("<h2>","")
+	for j in range(len(i)):
+		i[j] = i[j].strip()
+
         commited.append([None, i[0], i[2], i[4], i[1], i[3]])
         date = i[4].split("-")
         unixTimes = []
@@ -98,7 +102,9 @@ for i in events:
 		unixTimes.append(unixTimes[0])
 
         cur.execute("""INSERT INTO Events
-                    (`name`, `location`, `startDate`, `endDate`, `description`,`postcode`)
-                    VALUES (%s,%s,%s,%s,%s,%s)""", [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3]])
+                    (`name`, `location`, `startDate`, `endDate`,  `description`,`postcode`,`createdBy`)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s)""", 
+                    [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3], "71409503111"])
+
 db.commit()
 db.close()
