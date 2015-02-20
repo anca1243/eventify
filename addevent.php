@@ -27,46 +27,55 @@
   </head>
   <body>
    <?php require("style/header.php"); ?>
-    <script>
+   <!-- Init the datepicker thingy --> 
+   <script>
      $(function() {
       $( ".datepicker" ).pickadate();
      });
    </script>  
   <div id="content">
-   <h1>Add event</h1>
-   <div id="createEventForm" class="eventform">
-    <form id="eventInfo" action="#" method="post">
-     <div class="input-field">
-       <label for="evtitle">Event Title</label>
-       <input type="text" name="evtitle" />
-     </div>
+   <?php
+     //Only logged in users can add events
+     if (isset($_SESSION['session'])) {
+       echo "<h1>Add event</h1>
+             <!-- Add event form, posts to createEvent.php -->
+             <div id=\"createEventForm\" class=\"eventform\">
+              <form id=\"eventInfo\" action=\"#\" method=\"post\">
+              <div class=\"input-field\">
+               <label for=\"evtitle\">Event Title</label>
+               <input type=\"text\" name=\"evtitle\" />
+              </div>
       
-     <div class="input-field">
-      <label for="evdescription">Event Description</label>
-      <input type="text" name="evdescription" />
-     </div>
+             <div class=\"input-field\">
+              <label for=\"evdescription\">Event Description</label>
+              <input type=\"text\" name=\"evdescription\" />
+             </div>
 
-     <div class="input-field">
-      <label for="evdate">Event Date</label>
-      <input type="text" class="datepicker" name="evdate" />
-     </div>
+             <div class=\"input-field\">
+              <label for=\"evdate\">Event Date</label>
+              <input type=\"text\" class=\"datepicker\" name=\"evdate\" />
+             </div>
 
-     <div class="input-field">
-      <label for="evlocation">Event Location:</label>
-      <input type="text" name="evlocation" />
-     </div>
+             <div class=\"input-field\">
+              <label for=\"evlocation\">Event Location:</label>
+              <input type=\"text\" name=\"evlocation\" />
+             </div>
 
-     <div class="input-field">
-      <label for="evpostcode">Event Postcode:</label>
-      <input type="text" name="evpostcode" /> 
-     </div>
+            <div class=\"input-field\">
+             <label for=\"evpostcode\">Event Postcode:</label>
+             <input type=\"text\" name=\"evpostcode\" /> 
+            </div>
    
-     <button type="button" class="btn waves-effect waves-light"  
-             onclick="isFormFilled()">Submit
-             <i class="mdi-content-send right"></i>
-     </button>
-    </form>
-   </div>
+           <button type=\"button\" class=\"btn waves-effect waves-light\"  
+            onclick=\"isFormFilled()\">Submit
+            <i class=\"mdi-content-send right\"></i>
+         </button>
+       </form>
+      </div>";
+     } else {
+       echo "<h2>You must be logged in to do that</h2>";
+     }
+     ?>
   </div>
   </body>
 </html>

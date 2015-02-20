@@ -84,7 +84,7 @@
     }
     return $results;
   }
-
+  //Get the list of events created by user with ID $id;
   function getCreatedBy($id) {
     $con = connect();
     $stmt = $con->prepare("SELECT * FROM Events WHERE `createdBy` = ?");

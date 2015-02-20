@@ -1,4 +1,7 @@
 <?php
+//A magic function that turns
+//"12th september 2014"
+//into unix time
 function stringToDate($a) {
   $a = explode("-",$a);
   $i = 0;

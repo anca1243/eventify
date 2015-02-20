@@ -7,15 +7,10 @@
   <body>
   <?php require("style/header.php");
   echo '<div id="content"><h1>Event '.htmlspecialchars($_GET["id"]).'</h1>';
-
-  //Set up databse connection
-  $database_host = $group_dbnames[0];
-  $database_user  = $group_dbnames[2];
-  $database_pass = $group_dbnames[3];
-  $database_name = $group_dbnames[1];
+  require("database.php");
 
   //Get vars
-  $con = new mysqli($database_host,$database_user,$database_pass,$database_name);
+  $con = connect();
   $stmt = $con->prepare("SELECT * FROM Events WHERE `Id`=?");
   $stmt->bind_param('i', $_GET["id"]);
   $stmt->execute();
