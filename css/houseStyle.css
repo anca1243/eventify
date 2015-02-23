@@ -16,10 +16,34 @@ nav ul li:hover, nav ul li.active {
 
 #createEventForm input {
  color: #FFFFFF;
+ font-size: 200%;
 }
 
 #createEventForm button {
  background-color: #0EBFE9;
+}
+
+#searchForm input {
+ color: #ffffff;
+}
+
+/* label underline  color */
+.input-field input {
+  border-bottom: 1px solid #fff;
+  box-shadow: 0 1px 0 0 #fff;
+  font-size: 150%;
+}
+
+/* label underline focus color */
+.input-field input:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+  font-size: 150%;
+}
+
+
+#searchForm label {
+ font-size:150%;
 }
 
 body {
