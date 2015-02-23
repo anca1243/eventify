@@ -87,8 +87,6 @@
     $_SESSION["session"] = $session;
     // print data
     $userData = $graphObject->asArray();
-    //Add id to array for later use
-    $_SESSION['id'] = $userData["id"];
     echo '<a href="logout.php"><i class="mdi-navigation-close"></i>';
     echo 'Logout</a></li>';
     echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">';

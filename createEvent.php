@@ -6,16 +6,12 @@
  </head>
 
  <body>
-  <?php require("style/header.php");
-        require("database.php");
-        //require("dates.php");
-  ?>
+  <?php require("style/header.php"); ?>
   <?php
     echo "<h1>Event Succesfully Created</h1>";
     $title = $_POST["evtitle"];
     $desc  = $_POST["evdescription"];
-    $sdate = $_POST["evsdate"];
-    $edate = $_POST["evedate"];
+    $date  = $_POST["evdate"];
     $loc   = $_POST["evlocation"];
     $post  = $_POST["evpostcode"];
        
@@ -26,19 +22,11 @@
     $database_name = $group_dbnames[1];
   
     echo "Connection made";
-   
+
     //Connect to the database
-    $con = connect();
-    $stmt = $con->prepare("INSERT INTO Events (`name`, `location`, `startDate`, `endDate`, 
-                           `description`,`postcode`,`createdBy`) VALUES (?,?,?,?,?,?,?);");
-    if (!$stmt) {
-      echo $con->error;
-    }
-    $dates = array($sdate,$edate);
-    print_r($dates);
-    $formattedDates = stringToDateUser($dates);
-    //Post the event
-    $stmt->bind_param("sssssss",$title,$loc,$formattedDates[0],$formattedDates[1],$desc,$post,$_SESSION["id"]);
+    $con = new mysqli($database_host,$database_user,$database_pass,$database_name);
+    $stmt = $con->prepare("INSERT INTO Events (`name`, `location`, `date`, `description`,`postcode`) VALUES (?,?,?,?,?);");
+    $stmt->bind_param("sssss",$title,$loc,$date,$desc,$post);
     $stmt->execute();
   ?>
  </body>

@@ -88,6 +88,7 @@
   function getCreatedBy($id) {
     $con = connect();
     $stmt = $con->prepare("SELECT * FROM Events WHERE `createdBy` = ?");
+    echo $stmt;
     $stmt->bind_param("s",$id);
     if (!$stmt->execute()) { echo "Query Failed"; die; }
     $result = $stmt->get_result();
