@@ -12,8 +12,9 @@
         if (document.getElementsByName("evdescription")[0].value != "") 
           if (document.getElementsByName("evlocation")[0].value != "") 
             if (document.getElementsByName("evpostcode")[0].value != "")
-              if (document.getElementsByName("evdate")[0].value != "")
-                filled = true;     
+              if (document.getElementsByName("evsdate")[0].value != "")
+                if (document.getElementsByName("evedate")[0].value != "")
+                  filled = true;     
       //if so, submit the form
       if (filled) {
         document.getElementById("eventInfo").action = "createEvent.php"
@@ -52,8 +53,13 @@
              </div>
 
              <div class=\"input-field\">
-              <label for=\"evdate\">Event Date</label>
-              <input type=\"text\" class=\"datepicker\" name=\"evdate\" />
+              <label for=\"evsdate\">Start Date</label>
+              <input type=\"text\" class=\"datepicker\" name=\"evsdate\" />
+             </div>
+
+             <div class=\"input-field\">
+              <label for=\"evedate\">End Date</label>
+              <input type=\"text\" class=\"datepicker\" name=\"evedate\" />
              </div>
 
              <div class=\"input-field\">
