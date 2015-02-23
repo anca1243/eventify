@@ -63,7 +63,7 @@
   session_start();
   //require("config.php");
   FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
-  $helper = new FacebookRedirectLoginHelper($url);
+  $helper = new FacebookRedirectLoginHelper($url."login.php");
   if (isset($_SESSION["session"]))
     $session = $_SESSION["session"]; 
   if (!isset($session)) {
