@@ -7,9 +7,25 @@
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php"); ?>
-  <h1>Welcome to eventify</h1>
-  
-  <h3>Alpha v0.0.2</h3>
+  <h1 class="welcome">Welcome to eventify</h1>
+  <div class="row" id="splash">
+    <div class="col s4">
+      <i id="icon" class="mdi-action-event"></i>
+      <h3>TAGLINE</h3>
+      <p>Something something find events. Something something cure boredom</p>
+    </div>
+    <div class="col s4">
+      <i id="icon" class="mdi-action-account-child"></i>
+      <h3>TAGLINE</h3>
+      <p>Something something user interaction. Something something fun with friends</p>
+    </div>
+    <div class="col s4">
+      <i id="icon" class="mdi-action-done-all"></i>
+      <h3>TAGLINE</h3>
+      <p>Something something yes indeed. Something something else</p>
+    </div>
+
+  </div>
   <h4>Events happening today, <?php echo date('d M y'); ?></h4> 
   <?php
    $results = search_events("", "", date('d M y'), "", "");

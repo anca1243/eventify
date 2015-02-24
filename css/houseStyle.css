@@ -6,8 +6,21 @@
   background-color: #0147FA;
 }
 
+.welcome {
+  text-align: center;
+}
+
 nav ul li:hover, nav ul li.active {
   background-color: #0EBFE9;
+}
+
+#icon {
+  font-size: 1000%;
+  color: white;
+}
+
+#splash {
+  text-align: center;
 }
 
 .eventForm label {
@@ -50,7 +63,7 @@ body {
   background-color: #19A3FF;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5 {
   color: #FFFFFF;
 }
 
