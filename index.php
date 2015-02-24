@@ -5,10 +5,12 @@
  </head>
  <body>
   <!-- Easy import of header -->
-  <?php require("style/header.php"); ?>
+  <?php require("style/header.php");
+        require("database.php"); ?>
   <h1>Welcome to eventify</h1>
-  <h2>This is an alpha version of the site, functionality can and will change</h2>
-  <h3>Alpha v0.0.1</h3>
+  
+  <h3>Alpha v0.0.2</h3>
+  <h4>Events happening today, <?php echo date('d M y'); ?></h4> 
   <?php
    $results = search_events("", "", date('d M y'), "", "");
    displayResults($results);
