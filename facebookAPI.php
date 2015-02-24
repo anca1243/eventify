@@ -63,7 +63,7 @@
   session_start();
   //require("config.php");
   FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
-  $helper = new FacebookRedirectLoginHelper($url);
+  $helper = new FacebookRedirectLoginHelper($url."login.php");
   if (isset($_SESSION["session"]))
     $session = $_SESSION["session"]; 
   if (!isset($session)) {
@@ -87,6 +87,8 @@
     $_SESSION["session"] = $session;
     // print data
     $userData = $graphObject->asArray();
+    //Add id to array for later use
+    $_SESSION['id'] = $userData["id"];
     echo '<a href="logout.php"><i class="mdi-navigation-close"></i>';
     echo 'Logout</a></li>';
     echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">';
