@@ -83,5 +83,6 @@
      }
      ?>
   </div>
+  <?php require("style/footer.php"); ?>
   </body>
 </html>

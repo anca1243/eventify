@@ -58,6 +58,7 @@
       </div>  
      </div> <!-- End of results -->   
     </div>
+  <?php require("style/footer.php"); ?>
   </body>
 
   <script>

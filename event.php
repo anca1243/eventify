@@ -33,5 +33,6 @@
     <p id="evpostcode">'.$postcode.'</p>
     <h4 id="evdescription">'.$desc.'</h4>
   </div>'; ?>
+  <?php require("style/footer.php"); ?>
   </body>
 </html>
