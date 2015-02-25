@@ -30,8 +30,19 @@
     }
     echo '</p>
     <p id="evlocation">Location: '.$location.'</p>
-    <p id="evpostcode">'.$postcode.'</p>
-    <h4 id="evdescription">'.$desc.'</h4>
+    <p id="evpostcode">'.$postcode.'</p>';
+    if( $postcode != "Various" )
+    {
+      echo'
+      <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvFEWYa4AoCrM2NImuEgff5JDs4Nt360g&q='.$postcode.'">
+      </iframe>';
+    } 
+    echo
+    '<h5 id="evdescription">'.$desc.'</h5>
   </div>'; ?>
   <?php require("style/footer.php"); ?>
   </body>
