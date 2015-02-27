@@ -1,14 +1,13 @@
 <html>
   <head>
    <?php 
-   echo "<title>Event ".htmlspecialchars($_GET["id"])."</title>";
+   echo "<title>Event Info</title>";
    require("style/linkcss.php"); ?>
   </head>
   <body>
   <?php require("style/header.php");
   echo '<div id="content">';
   require("database.php");
-
   //Get vars
   $con = connect();
   $stmt = $con->prepare("SELECT * FROM Events WHERE `Id`=?");
@@ -28,9 +27,12 @@
     } else {
       echo "Date: ".$sdate;
     }
+    $user = fbRequest($createdBy);
     echo '</p>
     <p id="evlocation">Location: '.$location.'</p>
-    <p id="evpostcode">'.$postcode.'</p>';
+    <p id="evpostcode">Postcode: '.$postcode.'</p>
+    <p id="createdBy">Created by <a href=user.php?id="'.$createdBy.'">
+           '.$user['name'].'</a></p>';
     if( $postcode != "Various" )
     {
       echo'

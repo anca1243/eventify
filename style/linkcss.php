@@ -13,3 +13,8 @@
     text-align:center;
 }
 </style>
+
+<!-- Favicon -->
+<link rel="icon" 
+      type="image/png" 
+      href="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/blue-jelly-icons-alphanumeric/069514-blue-jelly-icon-alphanumeric-letter-ee.png">

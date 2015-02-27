@@ -47,7 +47,7 @@
      echo "<td>".$desc[0]."</td>";
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
-     echo "<td>".$row['postcode']."</td></tr>";
+     echo "<td>".$row['postcode']."</td></tr></a>";
    }
    echo "</tbody>
          </table>"; 

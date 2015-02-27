@@ -17,7 +17,7 @@
     } else {
       //Place the user's photo on the page
       $fbProfile = fbRequest($id);
-      echo '<img src="//graph.facebook.com/'.$userData["id"].'/picture?type=large">'; 
+      echo '<img src="//graph.facebook.com/'.$id.'/picture?type=large">'; 
       echo "<h1>User ";
       //Get the user's name
       echo $fbProfile['name'];
