@@ -32,11 +32,12 @@
 
           </div>";
   } else {
-    require("geoip.php");
+    require("geoIP.php");
     $user = fbRequest("/me");
-    echo "Welcome back, ".$user['first_name']. " ".$user['last_name'];
+    echo "<h3>Welcome back, ".$user['first_name']."</h3>\n";
     $location = getLocation();
-    echo "Your location: ".$location['zipCode'];
+    echo "<h4>Your location: ".$location['zipCode']." (".
+          $location['cityName'].")</h4>\n";
     echo "<h4>Events happening today, ". date('d M y') ."</h4>"; 
     $results = search_events("", "", date('d M y'), "", "");
     displayResults($results);
