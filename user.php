@@ -13,7 +13,7 @@
     $id = substr($id, 1,-1);
     //Must be logged in
     if (!isset($_SESSION['session'])) {
-      echo "<p>You must be logged in to view user profiles.\n <a href='index.html'>Go back to homepage</a></p>";
+      echo "<p>You must be logged in to view user profiles.\n <a href='index.php'>Go back to homepage</a></p>";
     } else {
       //Place the user's photo on the page
       $fbProfile = fbRequest($id);
