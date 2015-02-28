@@ -35,6 +35,11 @@
            <label for="evpostcode">Event Postcode</label>
            <input type="text" name="evpostcode" value='<?php echo $_GET['evpostcode'] ?>'/> 
           </div>
+	
+	  <div class="input-field">
+	   <label for="maxdist">Maximum Distance (mi)</label>
+	   <input type="text" name="maxdist" value='<?php echo $_GET['maxdist'] ?>'/>
+	  </div>
    
           <button type="submit" class="btn waves-effect waves-light">
              Search
@@ -51,8 +56,9 @@
         $post  = $_GET['evpostcode'];
         //For the database
         $description=$_GET['evdesc'];
+	$maxdist = $_GET['maxdist'];
         $location="";
-        $results = search_events($name, $location, $date, $description, $post);
+        $results = search_events($name, $location, $date, $description, $post,$maxdist);
         displayResults($results);
        ?>
       </div>  

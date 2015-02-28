@@ -14,7 +14,7 @@
     <a href="addevent.php"><i class="mdi-content-add"></i>Add Event</a>
    </li>
    <li>
-    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc="><i class="mdi-action-search"></i>Search</a>
+    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist="><i class="mdi-action-search"></i>Search</a>
    </li>
    <li>
     <?php require("facebookAPI.php"); ?>

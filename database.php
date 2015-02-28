@@ -27,6 +27,7 @@
           });});</script>";
 
     //Runs through the search results and displays them
+    echo "(Distance from ".getLocation()['zipCode'].")\n";
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
@@ -35,6 +36,7 @@
               <th data-field='sdate'>Start Date</th>
               <th data-field='edate'>End Date</th>
               <th data-field='loc'>Location</th>
+	      <th data-field='dist'>Distance</th>
             </tr>
         </thead>
 
@@ -47,7 +49,8 @@
      echo "<td>".$desc[0]."</td>";
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
-     echo "<td>".$row['postcode']."</td></tr></a>";
+     echo "<td>".$row['postcode']."</td>";
+     echo "<td>".$row[0]."</td></tr></a>";
    }
    echo "</tbody>
          </table>"; 
@@ -63,8 +66,9 @@
     return $return;
   }
 
-  function search_events($name, $location, $date, $desc, $postcode) {
+  function search_events($name, $location, $date, $desc, $postcode,$maxdist) {
     $con = connect();
+    require("geoIP.php");
     //Allows for easy SQL generation
     $sql = "SELECT * FROM Events WHERE 1=1 ";
     if (!no_val($name)) $sql.= " AND `name` LIKE '%".mysqli_real_escape_string($con, $name)."%'";
@@ -79,8 +83,40 @@
     if (!$stmt->execute()) { echo "Query Failed"; die; }
     $result = $stmt->get_result();
     $results = array();
+    $regex = '#^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$#';    
     while ($row = $result->fetch_assoc()) {
-        array_push($results, $row);
+      if (!no_val($maxdist)) {
+        $postcode1 = urlencode(getLocation()['zipCode']);
+        $postcode2 = ($row['postcode']);
+	if (preg_match($regex, $postcode2 )) {
+          $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".urlencode($postcode2)."&destinations=$postcode1&mode=driving&units=imperial";
+	  $data = file_get_contents($url);
+          $result1 = json_decode($data);
+          $distance = ($result1->rows[0]->elements[0]->distance->text);
+	  array_push($row, $distance);
+          if (substr($distance, 0, strlen($distance)-3) <= $maxdist)
+        	array_push($results, $row);
+	  } else {
+	        array_push($row, "---");
+		array_push($results, $row);
+	  }
+
+      } else {
+	$postcode1 = urlencode(getLocation()['zipCode']);
+	$postcode2 = $row['postcode'];
+	if (preg_match($regex, $postcode2 )) {
+          $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".urlencode($postcode2)."&destinations=$postcode1&mode=driving&units=imperial";
+          $data = file_get_contents($url);
+          $result1 = json_decode($data);
+          $distance = ($result1->rows[0]->elements[0]->distance->text);
+          array_push($row, $distance);
+	  array_push($results, $row);
+        } else {
+	  array_push($row, "---");
+	  array_push($results, $row);
+	}
+      }
+      
     }
     return $results;
   }
