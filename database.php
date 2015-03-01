@@ -35,9 +35,9 @@
               <th data-field='desc'>Description</th>
               <th data-field='sdate'>Start Date</th>
               <th data-field='edate'>End Date</th>
-              <th data-field='loc'>Location</th>
-	      <th data-field='dist'>Distance</th>
-            </tr>
+              <th data-field='loc'>Location</th>"; 
+	      echo "<th data-field='dist'>Distance</th>";
+    echo "</tr>
         </thead>
 
         <tbody>";
@@ -50,7 +50,9 @@
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
      echo "<td>".$row['postcode']."</td>";
-     echo "<td>".$row[0]."</td></tr></a>";
+     if (isset($row[0]))  
+       echo "<td>".$row[0]."</td>";
+     echo "</tr></a>";
    }
    echo "</tbody>
          </table>"; 
@@ -125,6 +127,7 @@
   }
   //Get the list of events created by user with ID $id;
   function getCreatedBy($id) {
+    require_once("geoIP.php");
     $con = connect();
     $stmt = $con->prepare("SELECT * FROM Events WHERE `createdBy` = ?");
     $stmt->bind_param("s",$id);
