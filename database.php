@@ -83,42 +83,45 @@
     if (!$stmt->execute()) { echo "Query Failed"; die; }
     $result = $stmt->get_result();
     $results = array();
-    $regex = '#^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9][ABD-HJLNP-UW-Z]{2})$#';    
+
+    $regex = '#^(GIR ?0AA|[A-PR-UWYZ]([0-9]{1,2}|([A-HK-Y][0-9]';
+    $regex .= '([0-9ABEHMNPRV-Y])?)|[0-9][A-HJKPS-UW]) ?[0-9]';
+    $regex .= '[ABD-HJLNP-UW-Z]{2})$#';
+
+    $postcode1 = urlencode(getLocation()['zipCode']);
+    $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+    $url .= urlencode($postcode1)."&destinations=";
+    
     while ($row = $result->fetch_assoc()) {
-      if (!no_val($maxdist)) {
-        $postcode1 = urlencode(getLocation()['zipCode']);
         $postcode2 = ($row['postcode']);
 	if (preg_match($regex, $postcode2 )) {
-          $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".urlencode($postcode2)."&destinations=$postcode1&mode=driving&units=imperial";
-	  $data = file_get_contents($url);
-          $result1 = json_decode($data);
-          $distance = ($result1->rows[0]->elements[0]->distance->text);
-	  array_push($row, $distance);
-          if (substr($distance, 0, strlen($distance)-3) <= $maxdist)
-        	array_push($results, $row);
-	  } else {
-	        array_push($row, "---");
-		array_push($results, $row);
-	  }
-
-      } else {
-	$postcode1 = urlencode(getLocation()['zipCode']);
-	$postcode2 = $row['postcode'];
-	if (preg_match($regex, $postcode2 )) {
-          $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".urlencode($postcode2)."&destinations=$postcode1&mode=driving&units=imperial";
-          $data = file_get_contents($url);
-          $result1 = json_decode($data);
-          $distance = ($result1->rows[0]->elements[0]->distance->text);
-          array_push($row, $distance);
-	  array_push($results, $row);
-        } else {
-	  array_push($row, "---");
-	  array_push($results, $row);
-	}
-      }
-      
+          $url .= urlencode("|".$postcode2);
+        }
+      	array_push($row, "---");
+      	array_push($results, $row);
     }
-    return $results;
+    $url .= "&units=imperial";
+    $data = file_get_contents($url);
+    $result1 = json_decode($data);
+    $distance = ($result1->rows[0]->elements);
+    $returnValues = array();
+    foreach ($results as $row) {
+	if (preg_match($regex, $row['postcode'])) {
+		$row[0] = $distance[0]->distance->text;
+		if (!no_val($maxdist))  {
+		  if ($row[0] <= $maxdist)
+                    array_push($returnValues, $row);
+                } else {
+		    array_push($returnValues, $row);
+		}
+		array_shift($distance);
+	} else {
+		if (no_val($maxdist)) 
+			array_push($returnValues, $row);
+	}
+		       
+    }
+    return $returnValues;
   }
   //Get the list of events created by user with ID $id;
   function getCreatedBy($id) {
