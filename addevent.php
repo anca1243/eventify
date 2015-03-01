@@ -15,6 +15,10 @@
               if (document.getElementsByName("evsdate")[0].value != "")
                 if (document.getElementsByName("evedate")[0].value != "")
                   filled = true;     
+      if (!checkPostcode(document.getElementsByName("evpostcode")[0].value)) {
+		filled = false;
+		toast("Invalid postcode!");
+      }
       //if so, submit the form
       if (filled) {
         document.getElementById("eventInfo").action = "createEvent.php"
@@ -25,6 +29,8 @@
     }
   
    </script>
+   <script src="js/common.js">
+ </script>
   </head>
   <body>
    <?php require("style/header.php"); ?>
