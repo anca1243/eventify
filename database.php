@@ -28,6 +28,7 @@
 
     //Runs through the search results and displays them
     echo "(Distance from ".getLocation()['zipCode'].")\n";
+    echo "<p><a href='postcode.php'>Not your location?</a></p>";
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>

@@ -8,6 +8,9 @@ function getLocation() {
  
   $locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
   $errors = $ipLite->getError();
+  if (isset($_SESSION['postcode']))
+    $locations['zipCode'] = $_SESSION['postcode'];
+
   return $locations;
 
 }

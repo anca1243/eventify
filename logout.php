@@ -8,6 +8,8 @@ session_unset();
 $_SESSION['FBID'] = NULL;
 $_SESSION['FULLNAME'] = NULL;
 $_SESSION['EMAIL'] =  NULL;
+$_SESSION['session'] = NULL;
+$_SESSION['postcode'] = NULL;
 ?>
 
 <h1>Succesfully Logged out.</h1>
