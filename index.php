@@ -39,7 +39,7 @@
     echo "<h4>Your location: ".$location['zipCode']." (".
           $location['cityName'].")</h4>\n";
     echo "<h4>Events happening today, ". date('d M y') ."</h4>"; 
-    $results = search_events("", "", date('d M y'), "", "","");
+    $results = search_events("", "", date('d M y'), "", "","","");
     displayResults($results);
   }
  ?>

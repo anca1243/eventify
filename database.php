@@ -68,7 +68,7 @@
     return $return;
   }
 
-  function search_events($name, $location, $date, $desc, $postcode,$maxdist) {
+  function search_events($name, $location, $date, $desc, $postcode,$maxdist,$id) {
     $con = connect();
     require_once("geoIP.php");
     //Allows for easy SQL generation
@@ -81,6 +81,7 @@
     } 
     if (!no_val($desc))  $sql.= " AND (`description` LIKE '".getTerms($desc).")";
     if (!no_val($postcode))  $sql.= " AND `postcode`LIKE '%".mysqli_real_escape_string($con, $postcode)."%'";
+    if (!no_val($id)) $sql .= " AND `createdBy` = " . $id;
     if (!$stmt = $con->prepare($sql)) { echo "SQL incorrect or injection attempt."; die; }
     if (!$stmt->execute()) { echo "Query Failed"; die; }
     $result = $stmt->get_result();
@@ -127,17 +128,6 @@
   }
   //Get the list of events created by user with ID $id;
   function getCreatedBy($id) {
-    require_once("geoIP.php");
-    $con = connect();
-    $stmt = $con->prepare("SELECT * FROM Events WHERE `createdBy` = ?");
-    $stmt->bind_param("s",$id);
-    if (!$stmt->execute()) { echo "Query Failed"; die; }
-    $result = $stmt->get_result();
-    $results = array();
-    while ($row = $result->fetch_assoc()) {
-        array_push($results, $row);
-    }
-    displayResults($results);
-
+    displayResults(search_events("","","","","","",$id));
   }
   ?>

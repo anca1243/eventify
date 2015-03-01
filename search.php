@@ -58,7 +58,7 @@
         $description=$_GET['evdesc'];
 	$maxdist = $_GET['maxdist'];
         $location="";
-        $results = search_events($name, $location, $date, $description, $post,$maxdist);
+        $results = search_events($name, $location, $date, $description, $post,$maxdist, "");
         displayResults($results);
        ?>
       </div>  
