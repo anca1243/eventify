@@ -68,7 +68,7 @@
 
   function search_events($name, $location, $date, $desc, $postcode,$maxdist) {
     $con = connect();
-    require("geoIP.php");
+    require_once("geoIP.php");
     //Allows for easy SQL generation
     $sql = "SELECT * FROM Events WHERE 1=1 ";
     if (!no_val($name)) $sql.= " AND `name` LIKE '%".mysqli_real_escape_string($con, $name)."%'";
