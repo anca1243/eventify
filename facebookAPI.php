@@ -1,3 +1,4 @@
+<html>
 <!--
 ##############################################################################
 #                                                                            #
@@ -15,43 +16,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
 </script>
 <div id="fb-root"></div>
-  <script>     
-
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: facebook_appID, 
-      status: true,
-         cookie: true,
-         xfbml: true,
-       channelUrl:'/channel.html',
-      frictionlessRequests: true,
-      useCachedDialogs: true,
-      oauth: true
-    });
-    FB.Event.subscribe('auth.login', function(response) {
-      window.location.reload();
-    });
-    FB.Event.subscribe('auth.logout', function(response) {
-      window.location.reload();
-    });
-    try {
-      FB.login(function (response) {
-        if (response.authResponse) {
-          console.log(response.authResponse.accessToken);
-          //transfer token to server with ajax
-        }
-      }, {scope: 'email'});
-    } catch (e) {};
-
-  };
-(function(d){
-   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-     if (d.getElementById(id)) {return;}
-   js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-     }(document));
-</script>
 
 <?php
   // Skip these two lines if you're using Composer
@@ -74,7 +38,7 @@
   use Facebook\GraphSessionInfo;
   use Facebook\HttpClients\FacebookStreamHttpClient;
   use Facebook\HttpClients\FacebookStream;
-  session_start();
+  session_start();  
   //require("config.php");
   FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
   $helper = new FacebookRedirectLoginHelper($url."login.php");
@@ -128,3 +92,4 @@ function fbRequest($req) {
 }
 
 ?>
+</html>
