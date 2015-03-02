@@ -8,7 +8,7 @@
   <?php require("style/header.php");
   echo '<div id="content">';
   require("database.php");
-  //Get vars
+  //Get variables
   $con = connect();
   $stmt = $con->prepare("SELECT * FROM Events WHERE `Id`=?");
   $stmt->bind_param('i', $_GET["id"]);

@@ -8,6 +8,9 @@
   <?php require("style/header.php");
         require("database.php");
   ?>
+ <!--Form to allow manual setting of postcode 
+     uses POST. I find this strangely satisfying
+ -->
  <form action="index.php" method="post" name="form" class="eventForm">
    <div class="input-field">
      <label for="postcode">Your Postcode</label>

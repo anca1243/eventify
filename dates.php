@@ -18,6 +18,9 @@ function stringToDate($a) {
   return( $a );
 }
 
+//This is really, really hacky
+//Basically the user's input data will be in a different format
+//To the council. So we need a new function ( ;) )
 function stringToDateUser($a) {
   $i = 0;
   $lastVal = 0;

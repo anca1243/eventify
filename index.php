@@ -7,9 +7,11 @@
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php");
+	//User can change postcode, gets redirected here with a POST value
         if (isset($_POST['postcode']))
           $_SESSION['postcode'] = $_POST['postcode'];
 
+	//Check if user is logged in, if not, display "welcome" page
         if (!isset($_SESSION["session"])) {
           echo "
            <h1 class=\"welcome\">Welcome to eventify</h1>
@@ -35,6 +37,7 @@
 
           </div>";
   } else {
+    //If they are logged in, show the user events happening today
     require("geoIP.php");
     $user = fbRequest("/me");
     echo "<h3>Welcome back, ".$user['first_name']."</h3>\n";

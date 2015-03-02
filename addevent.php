@@ -15,6 +15,7 @@
               if (document.getElementsByName("evsdate")[0].value != "")
                 if (document.getElementsByName("evedate")[0].value != "")
                   filled = true;     
+      //Check if the user's input on postcode is valid
       if (!checkPostcode(document.getElementsByName("evpostcode")[0].value)) {
 		filled = false;
 		toast("Invalid postcode!");
@@ -24,6 +25,7 @@
         document.getElementById("eventInfo").action = "createEvent.php"
         document.getElementById("eventInfo").submit();
       } else {
+	//Otherwise, alert them to their shortcomings in form-filling 
         toast("Please fill in all boxes to submit",4000);
       }
     }

@@ -24,9 +24,7 @@
     $database_user  = $group_dbnames[2];
     $database_pass = $group_dbnames[3];
     $database_name = $group_dbnames[1];
-  
-    echo "Connection made";
-   
+    
     //Connect to the database
     $con = connect();
     $stmt = $con->prepare("INSERT INTO Events (`name`, `location`, `startDate`, `endDate`, 
@@ -35,11 +33,11 @@
       echo $con->error;
     }
     $dates = array($sdate,$edate);
-    print_r($dates);
     $formattedDates = stringToDateUser($dates);
     //Post the event
     $stmt->bind_param("sssssss",$title,$loc,$formattedDates[0],$formattedDates[1],$desc,$post,$_SESSION["id"]);
     $stmt->execute();
+    echo "<p>The event has been posted! <a href=index.php>Return home</a></p>";
   ?>
  </body>
 
