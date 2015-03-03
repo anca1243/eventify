@@ -37,6 +37,7 @@
 
 .welcome {
   text-align: center;
+  color: #001f3f;
 }
 
 nav ul li:hover, nav ul li.active {
@@ -51,6 +52,7 @@ nav ul li:hover, nav ul li.active {
 
 #splash {
   text-align: center;
+  background-color:rgba(75,75,75,0.75);
 }
 
 .eventForm label {

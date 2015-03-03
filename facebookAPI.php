@@ -67,7 +67,7 @@
     $userData = $graphObject->asArray();
     //Add id to array for later use
     $_SESSION['id'] = $userData["id"];
-    echo '<a href="logout.php"><i class="mdi-navigation-close"></i>';
+    echo '<a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
     echo 'Logout</a></li>';
     echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">';
     echo '<img src=\'//graph.facebook.com/'.$userData["id"].'/picture\'>';
@@ -75,7 +75,7 @@
     echo $userData['last_name'].'&nbsp&nbsp</a></div></li>';
   } else {
     // show login url
-    echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';
+    echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i>Login</a>';
   } 
 
 function fbRequest($req) {

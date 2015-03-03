@@ -4,6 +4,7 @@
   <?php require("style/linkcss.php"); ?>
  </head>
  <body>
+  
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php");
@@ -14,25 +15,22 @@
 	//Check if user is logged in, if not, display "welcome" page
         if (!isset($_SESSION["session"])) {
           echo "
-           <h1 class=\"welcome\">Welcome to eventify</h1>
+           <h1 class=\"welcome\">Welcome to Eventify</h1>
            <div class=\"row\" id=\"splash\">
             <div class=\"col s4\">
              <i id=\"icon\" class=\"mdi-action-event\"></i>
-             <h3>TAGLINE</h3>
-             <p>Something something find events. 
-                Something something cure boredom</p>
+             <h3>EVENTS</h3>
+             <p><b>Find nearby events; Cure your boredom!</p>
            </div>
            <div class=\"col s4\">
             <i id=\"icon\" class=\"mdi-action-account-child\"></i>
-            <h3>TAGLINE</h3>
-            <p>Something something user interaction. 
-               Something something fun with friends</p>
+            <h3>SOCIAL</h3>
+            <p>Interact with your friends!</p>
            </div>
            <div class=\"col s4\">
             <i id=\"icon\" class=\"mdi-action-done-all\"></i>
-            <h3>TAGLINE</h3>
-            <p>Something something yes indeed. 
-               Something something else</p>
+            <h3>CREATE</h3>
+            <p>Create your own events and invite people</b></p>
           </div>
       </div>
  <div class=\"css-slideshow\">
@@ -58,6 +56,7 @@
     displayResults($results);
   }
  ?>
+
  <?php require("style/footer.php"); ?>
  </body>
 </html>
