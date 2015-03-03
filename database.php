@@ -29,24 +29,38 @@
           if(href) {
             window.location = href;
           }
-          });});</script>";
+          });});
+          var asc0 = 1;
+          var asc1 = 1;
+          var asc2 = 1;
+          var asc3 = 1;
+          var asc4 = 1;
+          var asc5 = 1;
+          </script>";
 
     //Runs through the search results and displays them
     echo "(Distance from ".getLocation()['zipCode'].")\n";
     echo "<p><a href='postcode.php'>Not your location?</a></p>";
+    //Make th elements clickable for sorting
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='name'>Title</th>
-              <th data-field='desc'>Description</th>
-              <th data-field='sdate'>Start Date</th>
-              <th data-field='edate'>End Date</th>
-              <th data-field='loc'>Location</th>"; 
-	      echo "<th data-field='dist'>Distance</th>";
+              <th data-field='name' onclick =\"sort_table(searchResultsBody, 0, asc0);
+              asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Title<i class='mdi-content-sort'></i></th>
+              <th data-field='desc' >Description</th>
+              <th data-field='sdate' onclick =\"sort_table(searchResultsBody, 2, asc2); 
+              asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
+              <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
+              asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;\">End Date<i class='mdi-content-sort'></i></th>
+              <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
+              <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>";
     echo "</tr>
         </thead>
 
-        <tbody>";
+        <tbody id=\"searchResultsBody\">";
+ 
    //Run through all results and format them in the table
    foreach ($a as $row) {
 
@@ -62,7 +76,37 @@
      echo "</tr></a>";
    }
    echo "</tbody>
-         </table>"; 
+         </table>
+   <script>
+    function sort_table(tbody, col, asc)
+     {
+       var rows = tbody.rows, events = new Array();
+       //Fill the array
+       for(var event = 0; event < rows.length; event++)
+       {
+         events[event] = new Array();
+         var info = rows[event].cells;
+         for(var infopart = 0; infopart < info.length; infopart++)
+         {
+           events[event][infopart] = info[infopart].innerHTML;
+         }
+       }
+       events.sort(function(ev1, ev2)
+                {
+                  if (col == 2 || col == 3) {
+                   return (ev1[col] == ev2[col]) ? 0 : ((Date.parse(ev1[col]) > Date.parse(ev2[col])) ? asc : -1*asc);
+                  }
+                  return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
+                });
+       //Rebuuild events table
+       for(var event = 0; event < rows.length; event++)
+       {
+         events[event] = '<td>' + events[event].join('</td><td>')+'</td>';
+       }
+       tbody.innerHTML = '<tr>' + events.join('</tr><tr>')+'</tr>'; 
+     }
+ 
+   </script>";
   }
 
   //Function for description field - splits them into individual terms
