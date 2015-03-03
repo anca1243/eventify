@@ -34,19 +34,25 @@
     //Runs through the search results and displays them
     echo "(Distance from ".getLocation()['zipCode'].")\n";
     echo "<p><a href='postcode.php'>Not your location?</a></p>";
+    //Make th elements clickable for sorting
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='name'>Title</th>
-              <th data-field='desc'>Description</th>
-              <th data-field='sdate'>Start Date</th>
-              <th data-field='edate'>End Date</th>
-              <th data-field='loc'>Location</th>"; 
-	      echo "<th data-field='dist'>Distance</th>";
+              <th data-field='name' onclick ="sort_table(searchResultsBody, 0, asc0);
+              asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" >Title</th>
+              <th data-field='desc' >Description</th>
+              <th data-field='sdate' onclick ="sort_table(searchResultsBody, 2, asc2); 
+              asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;" >Start Date</th>
+              <th data-field='edate' onclick ="sort_table(searchResultsBody, 3, asc3); 
+              asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;">End Date</th>
+              <th data-field='loc' onclick ="sort_table(searchResultsBody, 4, asc4); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;">Location</th> 
+	      <th data-field='dist' onclick ="sort_table(searchResultsBody, 5, asc5); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= 11;">Distance</th>";
     echo "</tr>
         </thead>
 
-        <tbody>";
+        <tbody id="serrchResultsBody">";
    //Run through all results and format them in the table
    foreach ($a as $row) {
 
@@ -62,7 +68,34 @@
      echo "</tr></a>";
    }
    echo "</tbody>
-         </table>"; 
+         </table>
+   <script>
+     function sort_table(tbody, col, asc)
+     {
+       var rows = tbody.rows, events = new Array();
+       //Fill the array
+       for(var event = 0; event < rows.length; event++)
+       {
+         events[event] = new Array();
+         var info = rows[event].cells;
+         for(var infopart = 0; infopart < info.length; j++)
+         {
+           events[event][infopart] = info[infopart].innerHTML;
+         }
+       }
+       //Sort array by specified column order
+       arr.sort(function(ev1, ev2)
+                {
+                  return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
+                });
+       //Rebuuild events table
+       for(var event = 0; event < rows.length; event++)
+       {
+         events[event] = '<td>' + events[event].join('</td><td>')+'</td>';
+       }
+       tbody.innerHTML = '<tr>' + arr.join('</tr><tr>')+'</tr>';'; 
+     }
+   </script>";
   }
 
   //Function for description field - splits them into individual terms
