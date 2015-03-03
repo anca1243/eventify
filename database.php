@@ -29,7 +29,14 @@
           if(href) {
             window.location = href;
           }
-          });});</script>";
+          });});
+          var asc0 = 1;
+          var asc1 = 1;
+          var asc2 = 1;
+          var asc3 = 1;
+          var asc4 = 1;
+          var asc5 = 1;
+          </script>";
 
     //Runs through the search results and displays them
     echo "(Distance from ".getLocation()['zipCode'].")\n";
@@ -38,21 +45,22 @@
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='name' onclick ="sort_table(searchResultsBody, 0, asc0);
-              asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;" >Title</th>
+              <th data-field='name' onclick =\"sort_table(searchResultsBody, 0, asc0);
+              asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Title<i class='mdi-content-sort'></i></th>
               <th data-field='desc' >Description</th>
-              <th data-field='sdate' onclick ="sort_table(searchResultsBody, 2, asc2); 
-              asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;" >Start Date</th>
-              <th data-field='edate' onclick ="sort_table(searchResultsBody, 3, asc3); 
-              asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;">End Date</th>
-              <th data-field='loc' onclick ="sort_table(searchResultsBody, 4, asc4); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;">Location</th> 
-	      <th data-field='dist' onclick ="sort_table(searchResultsBody, 5, asc5); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= 11;">Distance</th>";
+              <th data-field='sdate' onclick =\"sort_table(searchResultsBody, 2, asc2); 
+              asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
+              <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
+              asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;\">End Date<i class='mdi-content-sort'></i></th>
+              <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
+              <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= 11;\">Distance<i class='mdi-content-sort'></i></th>";
     echo "</tr>
         </thead>
 
-        <tbody id="serrchResultsBody">";
+        <tbody id=\"searchResultsBody\">";
+ 
    //Run through all results and format them in the table
    foreach ($a as $row) {
 
@@ -70,7 +78,7 @@
    echo "</tbody>
          </table>
    <script>
-     function sort_table(tbody, col, asc)
+    function sort_table(tbody, col, asc)
      {
        var rows = tbody.rows, events = new Array();
        //Fill the array
@@ -78,13 +86,12 @@
        {
          events[event] = new Array();
          var info = rows[event].cells;
-         for(var infopart = 0; infopart < info.length; j++)
+         for(var infopart = 0; infopart < info.length; infopart++)
          {
            events[event][infopart] = info[infopart].innerHTML;
          }
        }
-       //Sort array by specified column order
-       arr.sort(function(ev1, ev2)
+       events.sort(function(ev1, ev2)
                 {
                   return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
                 });
@@ -93,8 +100,9 @@
        {
          events[event] = '<td>' + events[event].join('</td><td>')+'</td>';
        }
-       tbody.innerHTML = '<tr>' + arr.join('</tr><tr>')+'</tr>';'; 
+       tbody.innerHTML = '<tr>' + events.join('</tr><tr>')+'</tr>'; 
      }
+ 
    </script>";
   }
 
