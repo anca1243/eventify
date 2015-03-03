@@ -55,7 +55,7 @@
               <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
               asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
               <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= 11;\">Distance<i class='mdi-content-sort'></i></th>";
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>";
     echo "</tr>
         </thead>
 
@@ -93,6 +93,9 @@
        }
        events.sort(function(ev1, ev2)
                 {
+                  if (col == 2 || col == 3) {
+                   return (ev1[col] == ev2[col]) ? 0 : ((Date.parse(ev1[col]) > Date.parse(ev2[col])) ? asc : -1*asc);
+                  }
                   return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
                 });
        //Rebuuild events table
