@@ -47,6 +47,11 @@ nav ul li:hover, nav ul li.active {
 #icon {
   font-size: 1000%;
   color: white;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 #splash {
@@ -100,6 +105,11 @@ body {
 
 h1, h2, h3, h4, h5 {
   color: #FFFFFF;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 #searchResults a {

@@ -133,12 +133,13 @@
     //Set the units to miles.
     //There's no real reason, most people just use miles
     $url .= "&units=imperial";
+    
     //Read the response from google
     $data = file_get_contents($url);
     //It's in JSON format, decode
     $result1 = json_decode($data);
     //It's quite a long response, we'll just use the bit we need
-    $distance = ($result1->rows[0]->elements);
+    @$distance = ($result1->rows[0]->elements);
     $returnValues = array();
     foreach ($results as $row) {
         //For all results with a valid postcode, add the distance
