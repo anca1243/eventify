@@ -1,9 +1,16 @@
-header, body, footer {
-  padding-left: 250px;
+p{display:inline;
+  color: white;}
+
+main, footer {
+  padding-left: 240px;
 }
 
-.content, body, .footer {
-  background-color: white;
+main {
+  background-color: #5E9DC8;
+}
+
+.footer footer {
+  background-color: #5F6B61;
 }
 
 .navbar ul li:hover, .navbar  ul li.active {
@@ -11,12 +18,26 @@ header, body, footer {
 }
 
 .navbar ul {
-  background-color: #4583C6;
+  background-color: #0C2C52;
   color: white;
 }
 
-a { 
+.navbar li a {
+  color: white;
+}
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+a { 
+  color: white;
 }
 
 .navbar a:link, .navbar i {
@@ -31,7 +52,7 @@ nav {
 
 #icon {
   font-size: 1000%;
-  color: black;
+  color: white;
 }
 
 #splash {
@@ -70,13 +91,19 @@ nav {
   font-size: 150%;
 }
 
-
+.welcome {
+  text-align: center;
+}
 #searchForm label {
  font-size:150%;
 }
 
-h1, h2, h3, h4, h5 {
-  color: #000000;
+h1 { 
+  color: white;
+}
+
+h2, h3, h4, h5 {
+  color: white;
 }
 
 #searchResults a {

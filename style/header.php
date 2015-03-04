@@ -1,4 +1,5 @@
 <!--Import config-->
+<header>
 <?php require("config.php"); ?>
 <meta charset="UTF-8"> 
 <!--Nav bar-->
@@ -10,10 +11,10 @@
    </br>
    <hr>
    <li>
-    <a href="index.php"><i class="mdi-action-home" style="vertical-align:middle;">Home</i></a>
+    <a href="index.php"><i class="mdi-action-home" style="vertical-align:middle;"></i><p>Home</p></a>
    </li>
     <li>
-    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist="><i class="mdi-action-search" style="vertical-align:middle;">Search</i></a>
+    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
    </li>
    <li>
     <?php require("facebookAPI.php"); ?>
@@ -31,4 +32,6 @@
 <script>
     $(".button-collapse").sideNav();
 </script>
+</header>
+<main>
 <body>
