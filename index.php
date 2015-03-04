@@ -20,18 +20,15 @@
             <div class=\"row\" id=\"splash\">
             <div class=\"col s4\">
              <i id=\"icon\" class=\"mdi-action-event\"></i>
-             <h3>EVENTS</h3>
-             <p><b>Find nearby events; Cure your boredom!</p>
+             <h3><b>Find Events...</p>
             </div>
            <div class=\"col s4\">
-            <i id=\"icon\" class=\"mdi-action-account-child\"></i>
-            <h3>SOCIAL</h3>
-            <p>Interact with your friends!</p>
+            <i id=\"icon\" class=\"mdi-social-location-city\"></i>
+            <h3><b>In your city...</b></h3>
            </div>
            <div class=\"col s4\">
-            <i id=\"icon\" class=\"mdi-action-done-all\"></i>
-            <h3>CREATE</h3>
-            <p>Create your own events and invite people</b></p>
+            <i id=\"icon\" class=\"mdi-social-mood\"></i>
+            <h3>Cure your boredom!</b></h3>
           </div>
       </div><br><br>
       <h2>Start by logging in, the button is over there!<br>
