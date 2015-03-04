@@ -21,17 +21,20 @@ eventURL = "?hideform=yes&displayevent=yes&eventid="
 HTMLSource = ""
 events = []
 url = domain + cgiAddr + searchURL
+counter = 1
 while url:
 	page = urllib2.urlopen(url)
 	try:
 		HTMLSource = page.read()
+                if "No results found" in HTMLSource:
+			break
 	except:
 		pass
 	finally:
 		page.close()
 	eventURLs = re.findall(domain + cgiAddr + '[A-Za-z0-9-]*', HTMLSource)
-	for event in eventURLs:
-		evPage = urllib2.urlopen(event)
+	for i in range(0,len(eventURLs),2):
+		evPage = urllib2.urlopen(eventURLs[i])
 		try:
 			evSource = evPage.read()
 		except:
@@ -39,23 +42,20 @@ while url:
 		finally:
 			evPage.close()
 		evDetails = []
-		title = re.search('class="nameWrapper"><h1>[A-Za-z0-9 !\?.\/]*<', evSource).group(0)
-		date = re.search('date\">[A-Za-z0-9 \/()]*<', evSource)
-		print date
-		location = re.search('<address><span>[A-Za-z0-9 ]*<', evSource).group(1)
-		post =re.search('</span><br /><span>[A-Za-z0-9] *</span>', evSource).group(1)
+		title = re.search('class="nameWrapper"><h1>[^<]*', evSource).group(0)
+		date = re.search('date\">[^<]*', evSource).group(0)
+		desc = re.search('<h2>About</h2>[^(</)]*', evSource).group(0)
+		location = re.search('<address><span>[^<]*', evSource).group(0)
+		post =re.search('</span><br /><span>[^(</span>)]*', evSource).group(0)
 		#try:
 		#	time = 
 		#except:
 		#	time = ''
 		#desc = 
 		print str([title, desc, location, post, date])
-
-	url = re.search('(' + cgiAddr + '\\' + searchURL + '\d*)">Next', HTMLSource)
-	if url != None:
-		url = domain + url.group(1)
-	else:
-		url = False
+	counter += 1
+	url = 'http://www.visitliverpool.com/whats-on/searchresults?p='+str(counter)+'&sr=1&stay=&rd=on&end=&anydate=yes'
+	print url
 
 def notin(table, obj):
     for i in table:
