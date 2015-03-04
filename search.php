@@ -48,7 +48,7 @@
          </form>
         </div> <!-- End of form div -->
        </div> <!-- End of search terms columns -->
-      <div class="col s9">
+      <div class="col s8">
        <?php
         //Retrieve vars
         $name = $_GET['evtitle'];

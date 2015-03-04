@@ -3,7 +3,6 @@
   <title>Eventify!</title>
   <?php require("style/linkcss.php"); ?>
  </head>
- <body>
   
   <!-- Easy import of header -->
   <?php require("style/header.php");
@@ -15,13 +14,15 @@
 	//Check if user is logged in, if not, display "welcome" page
         if (!isset($_SESSION["session"])) {
           echo "
+          <header>
            <h1 class=\"welcome\">Welcome to Eventify</h1>
-           <div class=\"row\" id=\"splash\">
+          </header>
+            <div class=\"row\" id=\"splash\">
             <div class=\"col s4\">
              <i id=\"icon\" class=\"mdi-action-event\"></i>
              <h3>EVENTS</h3>
              <p><b>Find nearby events; Cure your boredom!</p>
-           </div>
+            </div>
            <div class=\"col s4\">
             <i id=\"icon\" class=\"mdi-action-account-child\"></i>
             <h3>SOCIAL</h3>
@@ -32,17 +33,7 @@
             <h3>CREATE</h3>
             <p>Create your own events and invite people</b></p>
           </div>
-      </div>
- <div class=\"css-slideshow\">
-  <figure>
-    <img src=\"class-header-css3.jpg\" width=\"495\" height=\"370\" />
-     <figcaption><strong>CSS3:</strong> CSS3 delivers a...</figcaption>
-  </figure>
-  <figure>
-    <img src=\"class-header-semantics.jpg\" width=\"495\" height=\"370\" />
-    <figcaption><strong>Semantics:</strong> Giving meaning to...</figcaption>
-  </figure>
-</div>";
+      </div>";
 
   } else {
     //If they are logged in, show the user events happening today
@@ -58,5 +49,4 @@
  ?>
 
  <?php require("style/footer.php"); ?>
- </body>
 </html>
