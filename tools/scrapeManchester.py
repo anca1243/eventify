@@ -1,15 +1,9 @@
 import urllib2, re, getpass
 ##DETERMINE WHICH DB
-group = raw_input("Group DB? (y/n) ")
-user_name = raw_input("Username: ")
-
-if group == "n":
-	db_name = user_name
-else:
-	db_name = "2014_comp10120_x2"
-
-passW = getpass.getpass()
-
+db_name = "2014_comp10120_x2"
+user_name = "mbax4hw2"
+passW = "BestTeam2014"
+print "Scraping Manchester"
 domain = "https://secure.manchester.gov.uk"
 cgiAddr ="/site/custom_scripts/events_search.php"
 searchURL = "?searchresults=yes&dateType=anydate"
@@ -47,7 +41,7 @@ while url:
 		except:
 			time = ''
 		desc = re.search('<article.*?>(.*?)</article', evSource, re.S).group(1)
-		events.append([title, desc, location, post, date])
+		events.append([title, desc, location + ", Manchester", post, date])
 
 	url = re.search('(' + cgiAddr + '\\' + searchURL + '\d*)">Next Page >>', HTMLSource)
 	if url != None:
@@ -108,3 +102,5 @@ for i in events:
 
 db.commit()
 db.close()
+
+print "Scraped Manchester succesfully"

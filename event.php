@@ -17,14 +17,12 @@
   $stmt->fetch();
   $sdate = date("d M y",$sdate);
   $edate = date("d M y",$edate);
-  if ($postcode == "City Centre") { $postcode .= ", ".getCity($createdBy); 
-                                    $location .= ", ".getCity($createdBy); 
-  }
+  
   echo '<h1>'.$title.'</h1>';
   echo '<div id="EventInfo">
     <div class="row">
-    <div class="col s4">
-
+   <div class="col s4">
+    
     <h5 id="evdate">';
 
     if ($sdate != $edate) {
@@ -36,7 +34,14 @@
     echo '</h5><br>
     <h5 id="evlocation">Location: '.$location.'</h5><br>
     <h5 id="createdBy">Created by <a href=user.php?id="'.$createdBy.'">
-           '.$user['name'].'</a></h5></p><br>'; 
+           '.$user['name'].'</a></h5></p><br>
+    <form method="post" action="userAddEvent.php">
+     <input type="hidden" name="id" value="'.$_GET['id'].'"></input>
+      <button class="btn waves-effect waves-light" type="submit" name="action">I\'m Going!
+       <i class="mdi-content-add right"></i>
+      </button
+    </form>';
+
     if( $postcode != "Various" )
     {
       echo'</div><div class="col s4 offset-s2">
@@ -44,7 +49,7 @@
         width="600"
         height="450"
         frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvFEWYa4AoCrM2NImuEgff5JDs4Nt360g&q='.$postcode.'">
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvFEWYa4AoCrM2NImuEgff5JDs4Nt360g&q='.$location.'">
       </iframe>';
     } else {
       echo'</div><div class="col s4 offset-s2">

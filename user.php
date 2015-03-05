@@ -24,8 +24,10 @@
       echo "</h1>";  
       //Link to their profile 
       echo "Facebook profile: <a href='".$fbProfile['link']."'>".$fbProfile['link']."</a>";
-      echo "<h2>Created events:</h2>";
-      getCreatedBy($id);
+      if (getCity($id) != "") {
+        echo "<h2>Events Happening here:</h2>";
+        getCreatedBy($id);
+      }
     }
   ?>
  <?php require("style/footer.php"); ?>

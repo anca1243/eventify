@@ -54,7 +54,8 @@
               <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
               asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
               <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>";
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>
+              <th data-field='going'>Add</th>";
     echo "</tr>
         </thead>
 
@@ -70,7 +71,11 @@
      echo "<td>".$row['postcode']."</td>";
      if (isset($row[0]))  
        echo "<td>".$row[0]."</td>";
-     echo "</tr></a>";
+     else
+       echo '<td></td>'; 
+   echo "<td><form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'><button type='submit'
+         class='btn waves-effect waves-light'><i class='mdi-content-add'></button></form></td>";
+   echo "</tr></a>";
    }
    echo "</tbody>
          </table>

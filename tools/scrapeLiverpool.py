@@ -1,16 +1,10 @@
 import urllib2, re, getpass, os
 
 os.environ['http_proxy']=''
-##DETERMINE WHICH DB
-group = raw_input("Group DB? (y/n) ")
-user_name = raw_input("Username: ")
-
-if group == "n":
-	db_name = user_name
-else:
-	db_name = "2014_comp10120_x2"
-
-passW = getpass.getpass()
+user_name = "mbax4hw2"
+db_name = "2014_comp10120_x2"
+print "Scraping Liverpool"
+passW = "BestTeam2014"
 
 #http://www.visitliverpool.com/whats-on/searchresults?sr=1&rd=on&stay=&end=&anydate=yes
 domain = "http://www.visitliverpool.com"
@@ -23,7 +17,8 @@ events = []
 url = domain + cgiAddr + searchURL
 counter = 1
 while url:
-	page = urllib2.urlopen(url)
+        page = urllib2.urlopen(url);
+        #print url
 	try:
 		HTMLSource = page.read()
                 if "No results found" in HTMLSource:
@@ -35,6 +30,7 @@ while url:
 	eventURLs = re.findall(domain + cgiAddr + '[A-Za-z0-9-]*', HTMLSource)
 	for i in range(0,len(eventURLs),2):
 		evPage = urllib2.urlopen(eventURLs[i])
+		#print eventURLs[i]
 		try:
 			evSource = evPage.read()
 		except:
@@ -44,15 +40,24 @@ while url:
 		evDetails = []
 		title = re.search('class="nameWrapper"><h1>[^<]*', evSource).group(0)
 		date = re.search('date\">[^<]*', evSource).group(0)
-		desc = re.search('<h2>About</h2>[^(</)]*', evSource).group(0)
-		location = re.search('<address><span>[^<]*', evSource).group(0)
-		post =re.search('</span><br /><span>[^(</span>)]*', evSource).group(0)
+                try:
+			desc = re.search('About<\/h2>[^/]*', evSource).group(0)
+		except:
+			desc = ""
+		try:
+			location = re.search('<address><span>[^<]*', evSource).group(0)
+		except:
+			location = ""
+                try :
+			post =re.search('</span><br /><span>[^(</span>)]*', evSource).group(0)
+		except:
+			post = ""
 		#try:
 		#	time = 
 		#except:
 		#	time = ''
 		#desc = 
-		print str([title, desc, location, post, date])
+		events.append([title[24:], desc[15:-1], location[15:]+", Liverpool", post[19:], date[7:-1]])
 	counter += 1
 	url = 'http://www.visitliverpool.com/whats-on/searchresults?p='+str(counter)+'&sr=1&stay=&rd=on&end=&anydate=yes'
 	print url
@@ -98,7 +103,7 @@ for i in events:
         date = i[4].split("-")
         unixTimes = []
         for j in date:
- 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%A %d %B %Y")
+ 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%d/%m/%Y")
 		unixTimes.append(int((dt - datetime.datetime(1970,1,1)).total_seconds())) 
         if len(unixTimes) == 1:
 		unixTimes.append(unixTimes[0])
@@ -110,3 +115,4 @@ for i in events:
 
 db.commit()
 db.close()
+print "Scraped Liverpool Succesfully"
