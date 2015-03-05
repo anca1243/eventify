@@ -38,12 +38,11 @@
     //If they are logged in, show the user events happening today
     require("geoIP.php");
     $user = fbRequest("/me");
-    echo "<h3>Welcome back, ".$user['first_name']."</h3>\n";
+    echo "<h2>Welcome back, ".$user['first_name']."</h2>\n";
     $location = getLocation();
     echo "<h4>Your location: ".$location['zipCode']."</h4>\n";
-    echo "<h4>Events happening today, ". date('d M y') ."</h4>"; 
-    $results = search_events("", "", date('d M y'), "", "","","");
-    displayResults($results);
+    echo "<h4>What's been happening recently</h4>";
+    echo "---Filler, Here will be a feed of all users activity that I follow---";
   }
  ?>
 

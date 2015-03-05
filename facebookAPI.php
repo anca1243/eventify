@@ -16,7 +16,32 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
 </script>
 <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '837275619665461',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+   FB.Event.subscribe('comment.create', comment_callback);
+   FB.Event.subscribe('comment.remove', comment_callback);
 
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+// In your JavaScript
+var comment_callback = function(response) {
+  console.log("comment_callback");
+  console.log(response);
+}
+</script>
 <?php
   // Skip these two lines if you're using Composer
   require("import.php");
@@ -67,7 +92,10 @@
     $userData = $graphObject->asArray();
     //Add id to array for later use
     $_SESSION['id'] = $userData["id"];
-    echo '<a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
+    echo '<li>
+    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
+   </li>';
+    echo '<li><a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
     echo '<p>Logout</p></a></li>';
     echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'"><i class="mdi-action-verified-user"></i>';
     echo '<p>'.$userData['first_name'].'</p>';

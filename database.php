@@ -51,8 +51,7 @@
               asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
               <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
               asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;\">End Date<i class='mdi-content-sort'></i></th>
-              <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
+              <th data-field='loc'>Location</th> 
               <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
               asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>
               <th data-field='going'>Add</th>";
@@ -68,7 +67,7 @@
      echo "<td><a href=event.php?id=".$row['id'].">".$row['name']."</td>";
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
-     echo "<td>".$row['postcode']."</td>";
+     echo "<td>".$row['location']."</td>";
      if (isset($row[0]))  
        echo "<td>".$row[0]."</td>";
      else

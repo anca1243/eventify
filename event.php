@@ -39,8 +39,10 @@
      <input type="hidden" name="id" value="'.$_GET['id'].'"></input>
       <button class="btn waves-effect waves-light" type="submit" name="action">I\'m Going!
        <i class="mdi-content-add right"></i>
-      </button
-    </form>';
+      </button>
+    </form>
+     <div class="fb-comments" data-href="http://130.88.189.32/event.php?id='.$_GET["id"].'" data-numposts="5" width="100%" height="100%" 
+          data-colorscheme="light"></div>';
 
     if( $postcode != "Various" )
     {
