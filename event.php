@@ -20,7 +20,10 @@
 
   echo '<h1>'.$title.'</h1>';
   echo '<div id="EventInfo">
-    <p id="evdate">';
+    <div class="row">
+    <div class="col s4">
+
+    <h5 id="evdate">';
 
     if ($sdate != $edate) {
       echo "From ".$sdate." to ".$edate;
@@ -28,14 +31,13 @@
       echo "Date: ".$sdate;
     }
     $user = fbRequest($createdBy);
-    echo '</p>
-    <p id="evlocation">Location: '.$location.'</p>
-    <p id="evpostcode">Postcode: '.$postcode.'</p>
-    <p id="createdBy">Created by <a href=user.php?id="'.$createdBy.'">
-           '.$user['name'].'</a></p>';
+    echo '</h5><br>
+    <h5 id="evlocation">Location: '.$location.'</h5><br>
+    <h5 id="createdBy">Created by <a href=user.php?id="'.$createdBy.'">
+           '.$user['name'].'</a></h5></p><br>';
     if( $postcode != "Various" )
     {
-      echo'
+      echo'</div><div class="col s4 offset-s2">
       <iframe
         width="600"
         height="450"
@@ -44,7 +46,7 @@
       </iframe>';
     } 
     echo
-    '<h5 id="evdescription">'.$desc.'</h5>
+    '</div></div><h5 id="evdescription">'.$desc.'</h5>
   </div>'; ?>
   <?php require("style/footer.php"); ?>
   </body>

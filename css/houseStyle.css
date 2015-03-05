@@ -114,7 +114,7 @@ h2, h3, h4, h5 {
   color: #000000;
 }
 
-.input-field label, .input-field input {
+.input-field label, .input-field input, .input-field option {
   color: white;
   font-size: 120%;
 }

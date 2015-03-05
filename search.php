@@ -13,7 +13,7 @@
         <h1>Search Events</h1>
       </div>
       <div class="row">
-       <div class="col s3">
+       <div class="col s3"><br>
         <div id="searchForm" class="eventForm">
          <form id="search" action="search.php" method="get">
           <div class="input-field">
@@ -40,6 +40,17 @@
 	   <label for="maxdist">Maximum Distance (mi)</label>
 	   <input type="text" name="maxdist" value='<?php echo $_GET['maxdist'] ?>'/>
 	  </div>
+     
+          <div class="input-field">
+           <label>City</label><br>
+           <select name = "city" >
+           <option value="">Any</option>
+           <option value="<?php echo Cities::MANCHESTER; 
+             if ($_GET['city'] == Cities::MANCHESTER) echo '" selected "'?>">Manchester</option>
+           <option value="<?php echo Cities::LIVERPOOL; 
+             if ($_GET['city'] == Cities::LIVERPOOL) echo '" selected "'?>">Liverpool</option>
+         </select>
+         </div>
    
           <button type="submit" class="btn waves-effect waves-light">
              Search
@@ -57,8 +68,9 @@
         //For the database
         $description=$_GET['evdesc'];
 	$maxdist = $_GET['maxdist'];
+        $id = $_GET['city'];
         $location="";
-        $results = search_events($name, $location, $date, $description, $post,$maxdist, "");
+        $results = search_events($name, $location, $date, $description, $post,$maxdist, $id);
         displayResults($results);
        ?>
       </div>  
@@ -71,6 +83,10 @@
      $(function() {
       $( ".datepicker" ).pickadate();
      });
+      $(document).ready(function() {
+       $('select').material_select();
+     });
+         
  </script>
 
 </html>

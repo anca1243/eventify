@@ -1,4 +1,5 @@
 <?php
+  require("enum.php"); 
   //Set up databse connection
   require("dates.php"); 
   function connect() {
@@ -46,7 +47,6 @@
              <tr>
               <th data-field='name' onclick =\"sort_table(searchResultsBody, 0, asc0);
               asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Title<i class='mdi-content-sort'></i></th>
-              <th data-field='desc' >Description</th>
               <th data-field='sdate' onclick =\"sort_table(searchResultsBody, 2, asc2); 
               asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
               <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
@@ -65,8 +65,6 @@
 
      echo "<tr>";
      echo "<td><a href=event.php?id=".$row['id'].">".$row['name']."</td>";
-     $desc = explode("\n",$row['description']);
-     echo "<td>".$desc[0]."</td>";
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
      echo "<td>".$row['postcode']."</td>";

@@ -14,7 +14,7 @@
     <a href="index.php"><i class="mdi-action-home" style="vertical-align:middle;"></i><p>Home</p></a>
    </li>
     <li>
-    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
+    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
    </li>
    <li>
     <?php require("facebookAPI.php"); ?>
