@@ -13,4 +13,4 @@ CREATE TABLE Events(id INTEGER AUTO_INCREMENT,
                     PRIMARY KEY (id)
                     );
 
-CREATE TABLE UserEvents(userID integer, eventID integer);
+CREATE TABLE UserEvents(userID TEXT, eventID INT);

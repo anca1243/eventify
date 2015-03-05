@@ -187,7 +187,7 @@
     //print_r($result1);
     @$distance = ($result1->rows[0]->elements);
     $returnValues = array();
-    foreach ($results as $row) {
+    foreach ($result as $row) {
         //For all results with a valid postcode, add the distance
    	if (preg_match($regex, $row['postcode'])) {
 		@$row[0] = $distance[0]->distance->text;

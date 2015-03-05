@@ -7,6 +7,7 @@
   <?php require("style/header.php"); ?>
   <?php
     require("database.php");
+    require("geoIP.php");
     use Facebook\FacebookRequest;
     $id = $_GET["id"];
     //Because the url ID is formatted with quote marks
@@ -27,6 +28,20 @@
       if (getCity($id) != "") {
         echo "<h2>Events Happening here:</h2>";
         getCreatedBy($id);
+      } else {
+        echo "<h2>Events " . $fbProfile['first_name'] . " is going to</h2>";
+        $con = connect();
+        $stmt = $con->prepare("SELECT * FROM Events,UserEvents WHERE Events.id = UserEvents.EventID AND UserEvents.userID = ?");
+        $stmt->bind_param('s', $_SESSION["id"]);
+        $stmt->execute();     
+        $result = $stmt->get_result(); 
+        $results = array();
+	while ($row = $result->fetch_assoc()) {
+            array_push($results, $row);
+        }
+	displayResults($results);
+ 	
+  
       }
     }
   ?>
