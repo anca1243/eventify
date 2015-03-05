@@ -26,4 +26,9 @@ class Cities extends Enum {
   const LIVERPOOL      = "110332012350598";
 }
 
+function getCity($a) {
+  if ($a == Cities::MANCHESTER) return "Manchester";
+  else if ($a == Cities::LIVERPOOL) return "Liverpool";
+  else return "";
+}
 ?>
