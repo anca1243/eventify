@@ -36,8 +36,8 @@ main {
   flex: 1 0 auto;
 }
 
-a { 
-  color: white;
+a {
+ color: blue;
 }
 
 .navbar a:link, .navbar i {
@@ -69,12 +69,16 @@ nav {
  font-size: 200%;
 }
 
-#createEventForm button {
- background-color: #0EBFE9;
+.btn, .btn:active {
+ background-color: #0C2C52;
+}
+
+.btn:hover {
+ background-color: #0B13FF;
 }
 
 #searchForm input {
- color: #000000;
+ color: #000000;;
 }
 
 /* label underline  color */
@@ -110,14 +114,7 @@ h2, h3, h4, h5 {
   color: #000000;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+.input-field label, .input-field input {
+  color: white;
+  font-size: 120%;
+}
