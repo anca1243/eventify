@@ -1,12 +1,14 @@
 .navbar p{display:inline;
   color: white;}
 
-main, footer {
-  padding-left: 240px;
+main {
+  padding-left: 260px;
+  background-color: #5E9DC8;
 }
 
-main {
-  background-color: #5E9DC8;
+.activity-feed {
+  color: white;
+  font-size: 130%;
 }
 
 .footer footer {

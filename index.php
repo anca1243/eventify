@@ -41,9 +41,21 @@
     echo "<h2>Welcome back, ".$user['first_name']."</h2>\n";
     $location = getLocation();
     echo "<h4>Your location: ".$location['zipCode']."</h4>\n";
-    echo "<h4>What's been happening recently</h4>";
-    echo "---Filler, Here will be a feed of all users activity that I follow---";
+    echo "<h4>What's been happening recently</h4>"; 
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserEvents;");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    echo '<div class="activity-feed">';
+    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
+      echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.fbRequest($row['userID'])['name'].' is going to '.getEvent($row['eventID'])['name']."<br>";
+    }
   }
+  echo '</div>';
  ?>
 
  <?php require("style/footer.php"); ?>

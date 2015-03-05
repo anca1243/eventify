@@ -23,9 +23,6 @@
       xfbml      : true,
       version    : 'v2.2'
     });
-   FB.Event.subscribe('comment.create', comment_callback);
-   FB.Event.subscribe('comment.remove', comment_callback);
-
   };
 
   (function(d, s, id){
@@ -36,12 +33,8 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-// In your JavaScript
-var comment_callback = function(response) {
-  console.log("comment_callback");
-  console.log(response);
-}
 </script>
+<meta property="fb:app_id" content="837275619665461" />
 <?php
   // Skip these two lines if you're using Composer
   require("import.php");

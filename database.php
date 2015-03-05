@@ -54,7 +54,7 @@
               <th data-field='loc'>Location</th> 
               <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
               asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>
-              <th data-field='going'>Add</th>";
+              <th data-field='going'>Add/Remove</th>";
     echo "</tr>
         </thead>
 
@@ -72,8 +72,12 @@
        echo "<td>".$row[0]."</td>";
      else
        echo '<td></td>'; 
-   echo "<td><form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'><button type='submit'
-         class='btn waves-effect waves-light'><i class='mdi-content-add'></button></form></td>";
+   echo "<td>";
+   if (!goingToEvent($row['id'])) echo "<form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
+                                        <button type='submit' action='userAddEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-add'></button>";
+   else echo "<form method='post' action='userRmEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
+              <button type='submit' action='userRmEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-remove'></button>";
+   echo "</form></td>";
    echo "</tr></a>";
    }
    echo "</tbody>
@@ -213,5 +217,32 @@
   //Get the list of events created by user with ID $id;
   function getCreatedBy($id) {
     displayResults(search_events("","","","","","",$id));
+  }
+
+  function getEvent($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM Events WHERE `id`=?;");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return $results[0];
+  }
+
+  function goingToEvent($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserEvents WHERE EventID =? AND UserID = ?;");
+    $stmt->bind_param("is", $id, $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return (sizeof($results) != 0);
+
   }
   ?>

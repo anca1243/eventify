@@ -1,5 +1,6 @@
 <html>
   <head>
+   <meta property="fb:app_id" content="837275619665461" />
    <?php 
    echo "<title>Event Info</title>";
    require("style/linkcss.php"); ?>
@@ -41,9 +42,7 @@
        <i class="mdi-content-add right"></i>
       </button>
     </form>
-     <div class="fb-comments" data-href="http://130.88.189.32/event.php?id='.$_GET["id"].'" data-numposts="5" width="100%" height="100%" 
-          data-colorscheme="light"></div>';
-
+    <fb:comments href="'.$url.'event.php?id='.$_GET["id"].'"></fb:comments>';     
     if( $postcode != "Various" )
     {
       echo'</div><div class="col s4 offset-s2">
