@@ -79,7 +79,7 @@
 
 function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
-      echo "<p>You must be logged in to do that.\n <a href='index.html'>Go back to homepage</a></p>";
+      echo "<<p>You must be logged in to do that.<br><br> <a href='index.php'>Go back to homepage</a></p>";
       die;
   } else {
       $session = $_SESSION['session'];
