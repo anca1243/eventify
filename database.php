@@ -245,4 +245,25 @@
     return (sizeof($results) != 0);
 
   }
+
+  function following($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 =? AND User2 = ?;");
+    $stmt->bind_param("ss", $_SESSION['id'], $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return (sizeof($results) != 0);
+
+  }
+
+  function getName($id) {
+    if ($id == $_SESSION['id']) return "You";
+    else
+      return fbRequest($id)['name'];
+  }
+
   ?>

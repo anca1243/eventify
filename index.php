@@ -43,19 +43,39 @@
     echo "<h4>Your location: ".$location['zipCode']."</h4>\n";
     echo "<h4>What's been happening recently</h4>"; 
     $con = connect();
-    $stmt = $con->prepare("SELECT * FROM UserEvents;");
+    $stmt = $con->prepare("SELECT * FROM UserEvents
+                           WHERE (UserEvents.userID = ?)
+                         ");
+    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+       array_push($results, $row);
+    }    echo '<div class="activity-feed">';
+    echo '<div class="row">';
+    echo '<div class="col s6">';
+    //Going to new event
+    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
+      echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
+            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a><br>";
+    }
+    echo '</div>';
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 = ? OR User2=?;");
+    $stmt->bind_param("ss", $_SESSION['id'], $_SESSION['id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $results = array();
     while ($row = $result->fetch_assoc()) {
       array_push($results, $row);
     }
-    echo '<div class="activity-feed">';
+    echo '<div class="col s4">';
     foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
-      echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.fbRequest($row['userID'])['name'].' is going to '.getEvent($row['eventID'])['name']."<br>";
+      echo '<br><i class="mdi-social-person-add"></i>&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<br>";
     }
+    echo '</div>';
   }
-  echo '</div>';
  ?>
 
  <?php require("style/footer.php"); ?>

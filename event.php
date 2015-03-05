@@ -35,14 +35,17 @@
     echo '</h5><br>
     <h5 id="evlocation">Location: '.$location.'</h5><br>
     <h5 id="createdBy">Created by <a href=user.php?id="'.$createdBy.'">
-           '.$user['name'].'</a></h5></p><br>
-    <form method="post" action="userAddEvent.php">
-     <input type="hidden" name="id" value="'.$_GET['id'].'"></input>
-      <button class="btn waves-effect waves-light" type="submit" name="action">I\'m Going!
-       <i class="mdi-content-add right"></i>
-      </button>
-    </form>
-    <fb:comments href="'.$url.'event.php?id='.$_GET["id"].'"></fb:comments>';     
+           '.$user['name'].'</a></h5></p><br>';
+    if (!goingToEvent($_GET['id'])) 
+       echo "<form method='post' action='userAddEvent.php'>
+             <input name='id' type='hidden' value='".$_GET['id']."'>
+             <button type='submit' action='userAddEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-add'></i>I'm going!</button>";
+    else echo "<form method='post' action='userRmEvent.php'><input name='id' type='hidden' value='".$_GET['id']."'>
+               <button type='submit' action='userRmEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-remove'></i>
+               I'm not going any more</button>";
+   
+   echo "</form>"; 
+   echo '<fb:comments href="'.$url.'event.php?id='.$_GET["id"].'"></fb:comments>';     
     if( $postcode != "Various" )
     {
       echo'</div><div class="col s4 offset-s2">
