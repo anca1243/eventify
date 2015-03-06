@@ -168,12 +168,22 @@
     $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
     $url .= urlencode($postcode1)."&destinations=";
     //Go through all results from the query
+    $distances = array();
     while ($row = $result->fetch_assoc()) {
-        $postcode2 = ($row['postcode']);
-        //If there is a valid postcode associated with the row, add it to our google query.
-	if (preg_match($regex, $postcode2 )) {
-          $url .= urlencode("|".$postcode2);
+        $url .= urlencode("|".$row['location']);
+        if (strlen($url) >= 2000) {
+          $url .= "&units=imperial";
+          $data = json_decode(file_get_contents($url));
+          foreach ($data->rows[0]->elements as $dist) {
+	    if ($dist->status == "OK")
+              @array_push($distances, $dist->distance->text);
+            else
+              array_push($distances, "---");
+          }
+           $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+           $url .= urlencode($postcode1)."&destinations=";
         }
+          
         //Placeholder for distance values
       	array_push($row, "---");
 	//Add row to our results
@@ -182,34 +192,18 @@
     //Set the units to miles.
     //There's no real reason, most people just use miles
     $url .= "&units=imperial";
-    //Read the response from google
-    $data = file_get_contents($url);
-    //It's in JSON format, decode
-    $result1 = json_decode($data);
-    //It's quite a long response, we'll just use the bit we need
-    //print_r($result1);
-    @$distance = ($result1->rows[0]->elements);
     $returnValues = array();
     foreach ($result as $row) {
-        //For all results with a valid postcode, add the distance
-   	if (preg_match($regex, $row['postcode'])) {
-		@$row[0] = $distance[0]->distance->text;
-                //If the user has set a maximum distance, check this against the result
-		if (!no_val($maxdist))  {
-		  if ($row[0] <= $maxdist)
-                    array_push($returnValues, $row);
-                } else {
-                    //Otherwise just push it anyways
-		    array_push($returnValues, $row);
-		}
-		//Delete the first element from google results
-		@array_shift($distance);
-	} else {
-		//Not a valid postcode, if user doesn't care about distance, add it.
-		if (no_val($maxdist)) 
-			array_push($returnValues, $row);
-	}
-		       
+	   @array_push($row, $distances[0]);
+            if (no_val($maxdist)) {
+              if ($row[0] <= $maxdist) {
+                array_push($returnValues, $row);
+              }
+           } else {
+             array_push($returnValues, $row);
+           }
+            //Delete the first element from google results
+	   @array_shift($distance);		       
     }
     //Throw back the array of all results
     return $returnValues;
