@@ -9,6 +9,10 @@ main {
   background-color: #5E9DC8;
 }
 
+footer {
+  padding-left: 20px;
+}
+
 .activity-feed {
   color: white;
   font-size: 130%;
