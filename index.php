@@ -43,18 +43,22 @@
     echo "<h4>Your location: ".$location['zipCode']."</h4>\n";
     echo "<h4>What's been happening recently</h4>"; 
     $con = connect();
-    $stmt = $con->prepare("SELECT * FROM UserEvents
-                           WHERE (UserEvents.userID = ?)
+    $stmt = $con->prepare("SELECT * FROM `UserEvents` 
+                           INNER JOIN UserFollows 
+                           ON UserEvents.userID = ?
+                           OR (UserEvents.userID = UserFollows.User2 
+                           AND UserFollows.User1 = ?)
                          ");
-    $stmt->bind_param("s",$_SESSION['id']);
+    $stmt->bind_param("ss",$_SESSION['id'], $_SESSION['id']);
     $stmt->execute();
     $result = $stmt->get_result();
     $results = array();
     while ($row = $result->fetch_assoc()) {
-       array_push($results, $row);
+         if (not_in($row, $results))
+           array_push($results, $row);
     }    echo '<div class="activity-feed">';
     echo '<div class="row">';
-    echo '<div class="col s6">';
+    echo '<div class="col s8">';
     //Going to new event
     foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
       echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
@@ -68,13 +72,22 @@
     $result = $stmt->get_result();
     $results = array();
     while ($row = $result->fetch_assoc()) {
-      array_push($results, $row);
+     array_push($results, $row);
     }
     echo '<div class="col s4">';
     foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
       echo '<br><i class="mdi-social-person-add"></i>&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<br>";
     }
     echo '</div>';
+  }
+
+  function not_in($a, $b) {
+    foreach ($b as $c) {
+     if ($c['userID'] == $a['userID'])
+       if ($c['eventID'] == $a['eventID'])
+         return False;
+    }
+    return True;
   }
  ?>
 
