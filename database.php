@@ -172,17 +172,21 @@
     while ($row = $result->fetch_assoc()) {
         $url .= urlencode("|".$row['location']);
         if (strlen($url) >= 2000) {
-          $url .= "&units=imperial";
-          $data = json_decode(file_get_contents($url));
-          foreach ($data->rows[0]->elements as $dist) {
-	    if ($dist->status == "OK")
-              @array_push($distances, $dist->distance->text);
-            else
-              array_push($distances, "---");
-          }
-           $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+          @$url .= "&units=imperial";
+          if ($data = (@file_get_contents($url))) {
+            $data = json_decode($data);
+            if ($data->status == "OK") 
+              foreach ($data->rows[0]->elements as $dist) {
+	        if ($dist->status == "OK")
+                  @array_push($distances, $dist->distance->text);
+                else
+                  array_push($distances, "---");
+              }
+           $url ="http://maps.googleapis.com/maps/api/
+                  distancematrix/json?origins=";
            $url .= urlencode($postcode1)."&destinations=";
-        }
+         }
+       }
           
         //Placeholder for distance values
       	array_push($row, "---");
