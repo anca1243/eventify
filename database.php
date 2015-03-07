@@ -1,4 +1,5 @@
 <?php
+  require("enum.php"); 
   //Set up databse connection
   require("dates.php"); 
   function connect() {
@@ -39,23 +40,21 @@
           </script>";
 
     //Runs through the search results and displays them
-    echo "(Distance from ".getLocation()['zipCode'].")\n";
-    echo "<p><a href='postcode.php'>Not your location?</a></p>";
+    echo "<p>Distance from ".getLocation()['zipCode']."&nbsp&nbsp<a href='postcode.php'>Not your location?</a></p>";
     //Make th elements clickable for sorting
     echo "<table class='hoverable' id='searchResults'>
             <thead>
              <tr>
               <th data-field='name' onclick =\"sort_table(searchResultsBody, 0, asc0);
               asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Title<i class='mdi-content-sort'></i></th>
-              <th data-field='desc' >Description</th>
               <th data-field='sdate' onclick =\"sort_table(searchResultsBody, 2, asc2); 
               asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
               <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
               asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;\">End Date<i class='mdi-content-sort'></i></th>
-              <th data-field='loc' onclick =\"sort_table(searchResultsBody, 4, asc4); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 *= -1; asc5 = 1;\">Location</th> 
+              <th data-field='loc'>Location</th> 
               <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>";
+              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>
+              <th data-field='going'>Add/Remove</th>";
     echo "</tr>
         </thead>
 
@@ -66,14 +65,20 @@
 
      echo "<tr>";
      echo "<td><a href=event.php?id=".$row['id'].">".$row['name']."</td>";
-     $desc = explode("\n",$row['description']);
-     echo "<td>".$desc[0]."</td>";
      echo "<td>".date("d M y",$row['startDate'])."</td>";
      echo "<td>".date("d M y",$row["endDate"])."</td>";
-     echo "<td>".$row['postcode']."</td>";
+     echo "<td>".$row['location']."</td>";
      if (isset($row[0]))  
        echo "<td>".$row[0]."</td>";
-     echo "</tr></a>";
+     else
+       echo '<td></td>'; 
+   echo "<td>";
+   if (!goingToEvent($row['id'])) echo "<form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
+                                        <button type='submit' action='userAddEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-add'></button>";
+   else echo "<form method='post' action='userRmEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
+              <button type='submit' action='userRmEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-remove'></button>";
+   echo "</form></td>";
+   echo "</tr></a>";
    }
    echo "</tbody>
          </table>
@@ -170,12 +175,26 @@
     $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
     $url .= urlencode($postcode1)."&destinations=";
     //Go through all results from the query
+    $distances = array();
     while ($row = $result->fetch_assoc()) {
-        $postcode2 = ($row['postcode']);
-        //If there is a valid postcode associated with the row, add it to our google query.
-	if (preg_match($regex, $postcode2 )) {
-          $url .= urlencode("|".$postcode2);
-        }
+        $url .= urlencode("|".$row['location']);
+        if (strlen($url) >= 2000) {
+          @$url .= "&units=imperial";
+          if ($data = (@file_get_contents($url))) {
+            $data = json_decode($data);
+            if ($data->status == "OK") 
+              foreach ($data->rows[0]->elements as $dist) {
+	        if ($dist->status == "OK")
+                  @array_push($distances, $dist->distance->text);
+                else
+                  array_push($distances, "---");
+              }
+           $url ="http://maps.googleapis.com/maps/api/
+                  distancematrix/json?origins=";
+           $url .= urlencode($postcode1)."&destinations=";
+         }
+       }
+          
         //Placeholder for distance values
       	array_push($row, "---");
 	//Add row to our results
@@ -184,34 +203,18 @@
     //Set the units to miles.
     //There's no real reason, most people just use miles
     $url .= "&units=imperial";
-    
-    //Read the response from google
-    $data = file_get_contents($url);
-    //It's in JSON format, decode
-    $result1 = json_decode($data);
-    //It's quite a long response, we'll just use the bit we need
-    @$distance = ($result1->rows[0]->elements);
     $returnValues = array();
-    foreach ($results as $row) {
-        //For all results with a valid postcode, add the distance
-   	if (preg_match($regex, $row['postcode'])) {
-		$row[0] = $distance[0]->distance->text;
-                //If the user has set a maximum distance, check this against the result
-		if (!no_val($maxdist))  {
-		  if ($row[0] <= $maxdist)
-                    array_push($returnValues, $row);
-                } else {
-                    //Otherwise just push it anyways
-		    array_push($returnValues, $row);
-		}
-		//Delete the first element from google results
-		array_shift($distance);
-	} else {
-		//Not a valid postcode, if user doesn't care about distance, add it.
-		if (no_val($maxdist)) 
-			array_push($returnValues, $row);
-	}
-		       
+    foreach ($result as $row) {
+	   @array_push($row, $distances[0]);
+            if (no_val($maxdist)) {
+              if ($row[0] <= $maxdist) {
+                array_push($returnValues, $row);
+              }
+           } else {
+             array_push($returnValues, $row);
+           }
+            //Delete the first element from google results
+	   @array_shift($distance);		       
     }
     //Throw back the array of all results
     return $returnValues;
@@ -220,4 +223,52 @@
   function getCreatedBy($id) {
     displayResults(search_events("","","","","","",$id));
   }
+
+  function getEvent($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM Events WHERE `id`=?;");
+    $stmt->bind_param("s", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return $results[0];
+  }
+
+  function goingToEvent($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserEvents WHERE EventID =? AND UserID = ?;");
+    $stmt->bind_param("is", $id, $_SESSION['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return (sizeof($results) != 0);
+
+  }
+
+  function following($id) {
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 =? AND User2 = ?;");
+    $stmt->bind_param("ss", $_SESSION['id'], $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+      array_push($results, $row);
+    }
+    return (sizeof($results) != 0);
+
+  }
+
+  function getName($id) {
+    if ($id == $_SESSION['id']) return "You";
+    else
+      return fbRequest($id)['name'];
+  }
+
   ?>

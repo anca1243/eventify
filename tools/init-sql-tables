@@ -1,20 +1,6 @@
 #!/bin/bash
-read -p "Group DB? (y/n)" grp;
-read -p "Username: " user;
-
-if [ "$grp" = "n" ]; then
-    db=$user
-else
-    db="2014_comp10120_x2"
-fi
-
-stty -echo
-read -p "Password: " passw; 
-stty echo
-
 echo "Connecting to database..."
 echo "Refreshing tables..."
-echo $db
-mysql --user=$user --host=dbhost.cs.man.ac.uk --password=$passw $db < initsql.sql
+mysql --user=mbax4hw2 --host=dbhost.cs.man.ac.uk --password=BestTeam2014 2014_comp10120_x2 < initsql.sql
 
 echo "Reinit'd tables"

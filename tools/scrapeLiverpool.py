@@ -1,35 +1,36 @@
-import urllib2, re, getpass
-##DETERMINE WHICH DB
-group = raw_input("Group DB? (y/n) ")
-user_name = raw_input("Username: ")
+import urllib2, re, getpass, os
 
-if group == "n":
-	db_name = user_name
-else:
-	db_name = "2014_comp10120_x2"
+os.environ['http_proxy']=''
+user_name = "mbax4hw2"
+db_name = "2014_comp10120_x2"
+print "Scraping Liverpool"
+passW = "BestTeam2014"
 
-passW = getpass.getpass()
-
-domain = "https://secure.manchester.gov.uk"
-cgiAddr ="/site/custom_scripts/events_search.php"
-searchURL = "?searchresults=yes&dateType=anydate"
-searchURL += "&date=&startDate=&endDate=&location=Anywhere&offset="
+#http://www.visitliverpool.com/whats-on/searchresults?sr=1&rd=on&stay=&end=&anydate=yes
+domain = "http://www.visitliverpool.com"
+cgiAddr ="/whats-on/"
+searchURL = "/searchresults?sr=1&rd=on&stay=&end=&anydate=yes"
 eventURL = "?hideform=yes&displayevent=yes&eventid="
 
 HTMLSource = ""
 events = []
 url = domain + cgiAddr + searchURL
+counter = 1
 while url:
-	page = urllib2.urlopen(url)
+        page = urllib2.urlopen(url);
+        #print url
 	try:
 		HTMLSource = page.read()
+                if "No results found" in HTMLSource:
+			break
 	except:
 		pass
 	finally:
 		page.close()
-	eventURLs = re.findall(cgiAddr + '\\' + eventURL + '\d*', HTMLSource)
-	for event in eventURLs:
-		evPage = urllib2.urlopen(domain + event)
+	eventURLs = re.findall(domain + cgiAddr + '[A-Za-z0-9-]*', HTMLSource)
+	for i in range(0,len(eventURLs),2):
+		evPage = urllib2.urlopen(eventURLs[i])
+		#print eventURLs[i]
 		try:
 			evSource = evPage.read()
 		except:
@@ -37,23 +38,29 @@ while url:
 		finally:
 			evPage.close()
 		evDetails = []
-		evSource = evSource[re.search('<div id="content"', evSource).start():].split('</section')[0]
-		title = re.search('<h\d>(.*?)</h\d', evSource).group(1)
-		date = re.search('<span class="icon-calendar"></span>(.*?)</li', evSource, re.S).group(1)
-		location = re.search('<span class="icon-location"></span>(.*?)</li', evSource).group(1)
-		post = location.split(',')[-1]
-		try:
-			time = re.search('<span class="icon-clock"></span>(.*?)</li', evSource).group(1)
+		title = re.search('class="nameWrapper"><h1>[^<]*', evSource).group(0)
+		date = re.search('date\">[^<]*', evSource).group(0)
+                try:
+			desc = re.search('About<\/h2>[^/]*', evSource).group(0)
 		except:
-			time = ''
-		desc = re.search('<article.*?>(.*?)</article', evSource, re.S).group(1)
-		events.append([title, desc, location, post, date])
-
-	url = re.search('(' + cgiAddr + '\\' + searchURL + '\d*)">Next Page >>', HTMLSource)
-	if url != None:
-		url = domain + url.group(1)
-	else:
-		url = False
+			desc = ""
+		try:
+			location = re.search('<address><span>[^<]*', evSource).group(0)
+		except:
+			location = ""
+                try :
+			post =re.search('</span><br /><span>[^(</span>)]*', evSource).group(0)
+		except:
+			post = ""
+		#try:
+		#	time = 
+		#except:
+		#	time = ''
+		#desc = 
+		events.append([title[24:], desc[15:-1], location[15:]+", Liverpool", post[19:], date[7:-1]])
+	counter += 1
+	url = 'http://www.visitliverpool.com/whats-on/searchresults?p='+str(counter)+'&sr=1&stay=&rd=on&end=&anydate=yes'
+	print url
 
 def notin(table, obj):
     for i in table:
@@ -96,7 +103,7 @@ for i in events:
         date = i[4].split("-")
         unixTimes = []
         for j in date:
- 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%A %d %B %Y")
+ 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%d/%m/%Y")
 		unixTimes.append(int((dt - datetime.datetime(1970,1,1)).total_seconds())) 
         if len(unixTimes) == 1:
 		unixTimes.append(unixTimes[0])
@@ -104,7 +111,8 @@ for i in events:
         cur.execute("""INSERT INTO Events
                     (`name`, `location`, `startDate`, `endDate`,  `description`,`postcode`,`createdBy`)
                     VALUES (%s,%s,%s,%s,%s,%s,%s)""", 
-                    [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3], "71409503111"])
+                    [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3], "110332012350598"])
 
 db.commit()
 db.close()
+print "Scraped Liverpool Succesfully"

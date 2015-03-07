@@ -1,20 +1,42 @@
-
-#content {
-  padding: 10px 20px 10px 20px;
+.footer footer {
+  background-color: #5F6B61;
 }
 
-.nav-wrapper {
-  background-color: #000000;
-  background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
+.navbar ul li:hover, .navbar  ul li.active {
+  background-color: #0B13FF;
 }
 
-.welcome {
-  text-align: center;
+.navbar ul {
+  background-color: #0C2C52;
+  color: white;
 }
 
-nav ul li:hover, nav ul li.active {
-  background-color: #000000;
-  background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
+.navbar li a {
+  color: white;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+a {
+ color: blue;
+}
+
+.navbar a:link, .navbar i {
+  font-size: 150%;
+  color: white;
+}
+
+nav {
+  background-color: white;
+  height: 0px;
 }
 
 #icon {
@@ -24,10 +46,11 @@ nav ul li:hover, nav ul li.active {
 
 #splash {
   text-align: center;
+  color: black;
 }
 
 .eventForm label {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 #createEventForm input {
@@ -35,60 +58,54 @@ nav ul li:hover, nav ul li.active {
  font-size: 200%;
 }
 
-#createEventForm button {
- background-color: #0EBFE9;
- background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
+.btn, .btn:active {
+ background-color: #0C2C52;
+}
+
+.btn:hover {
+ background-color: #0B13FF;
 }
 
 #searchForm input {
- color: #ffffff;
+ color: #000000;;
 }
 
 /* label underline  color */
 .input-field input {
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid blue;
   box-shadow: 0 1px 0 0 #fff;
   font-size: 150%;
 }
 
 /* label underline focus color */
 .input-field input:focus {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #4583C6;
   box-shadow: 0 1px 0 0 #000;
   font-size: 150%;
 }
 
-
+.welcome {
+  text-align: center;
+}
 #searchForm label {
  font-size:150%;
 }
 
-body {
-  background-color: #212121;
-  // background-image: url(http://www.ultralightinghire.co.uk/media/IMG_3397.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center; 
+
+h1 { 
+  color: white;
 }
 
-h1, h2, h3, h4, h5 {
-  color: #FFFFFF;
+h2, h3, h4, h5 {
+  color: white;
 }
 
 #searchResults a {
   color: #000000;
 }
 
-.fb-login-button {
-  padding: 15px 10px 10px 10px;
+.input-field label, .input-field input, .input-field option {
+  color: white;
+  font-size: 120%;
 }
-
-#fbPicture {
-  padding: 10px 10px 10px 10px;
-}
-
-
-
-
-
 

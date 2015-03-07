@@ -1,4 +1,5 @@
 <?php
+
 require("style/header.php");
 echo "<head>";
 require("style/linkcss.php");

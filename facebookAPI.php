@@ -16,7 +16,25 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
 </script>
 <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '837275619665461',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+</script>
+<meta property="fb:app_id" content="837275619665461" />
 <?php
   // Skip these two lines if you're using Composer
   require("import.php");
@@ -67,20 +85,22 @@
     $userData = $graphObject->asArray();
     //Add id to array for later use
     $_SESSION['id'] = $userData["id"];
-    echo '<a href="logout.php"><i class="mdi-navigation-close"></i>';
-    echo 'Logout</a></li>';
-    echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">';
-    echo '<img src=\'//graph.facebook.com/'.$userData["id"].'/picture\'>';
-    echo $userData['first_name'].'&nbsp';
-    echo $userData['last_name'].'&nbsp&nbsp</a></div></li>';
+    echo '<li>
+    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
+   </li>';
+    echo '<li><a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
+    echo '<p>Logout</p></a></li>';
+    echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'"><i class="mdi-action-verified-user"></i>';
+    echo '<p>'.$userData['first_name'].'</p>';
+    echo '</a></div></li>';
   } else {
     // show login url
-    echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person"></i>Login</a>';
+    echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
   } 
 
 function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
-      echo "<p>You must be logged in to do that.\n <a href='index.html'>Go back to homepage</a></p>";
+      echo "<<p>You must be logged in to do that.<br><br> <a href='index.php'>Go back to homepage</a></p>";
       die;
   } else {
       $session = $_SESSION['session'];
