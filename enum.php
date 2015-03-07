@@ -24,11 +24,13 @@ class Cities extends Enum {
   // Our enum values
   const MANCHESTER     = "71409503111";
   const LIVERPOOL      = "110332012350598";
+  const SHEFFIELD      = "108299645860446";
 }
 
 function getCity($a) {
   if ($a == Cities::MANCHESTER) return "Manchester";
   else if ($a == Cities::LIVERPOOL) return "Liverpool";
+  else if ($a == Cities::SHEFFIELD) return "Sheffield";
   else return "";
 }
 ?>

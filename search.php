@@ -51,6 +51,8 @@
              if ($_GET['city'] == Cities::MANCHESTER) echo '" selected "'?>">Manchester</option>
            <option value="<?php echo Cities::LIVERPOOL; 
              if ($_GET['city'] == Cities::LIVERPOOL) echo '" selected "'?>">Liverpool</option>
+	   <option value="<?php echo Cities::SHEFFIELD;
+             if ($_GET['city'] == Cities::SHEFFIELD) echo '" selected "'?>">Sheffield</option>
          </select>
          </div>
    
