@@ -66,7 +66,24 @@
     }
     echo
     '</div></div><h5 id="evdescription">'.$desc.'</h5>
-  </div>'; ?>
+    <div class="row">
+    <div class="col s4">
+    <div class="eventGoers">';
+    $con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserEvents WHERE `EventID`=?;");
+    $stmt->bind_param("i", $_GET['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    echo '<ul class="collection with-header">';
+    echo '<li class="collection-header"><h4>Going to this event:</h4></li>';
+    while ($row = $result->fetch_assoc()) {
+      $name = getName($row['userID']);
+      echo '<li class="collection-item"><div>'.$name.'
+      <a href="user.php?id=\''.$row['userID'].'\'" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>';
+    } 
+    
+  echo '</div></div></div></div>'; ?>
   <?php require("style/footer.php"); ?>
   </body>
 </html>

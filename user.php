@@ -39,17 +39,17 @@
         echo '<form action="unfollow.php" method="post">
               <input type="hidden" value="'.$id.'"></input>
               <button type="submit" class="btn waves-effect waves-light">
-              Follow '.$fbProfile['first_name'].'
+              Follow '.$fbProfile['name'].'
              <i class="mdi-content-add right"></i></button></form>';
         } else {
         echo '<form action="follow.php" method="post">
               <input type="hidden" value="'.$id.'"></input>
               <button type="submit" class="btn waves-effect waves-light">
-              Unfollow '.$fbProfile['first_name'].'
+              Unfollow '.$fbProfile['name'].'
              <i class="mdi-content-add right"></i></button></form>';
 
         }
-        echo "<h2>Events " . $fbProfile['first_name'] . " is going to:</h2>";
+        echo "<h2>Events " . $fbProfile['name'] . " is going to:</h2>";
         $con = connect();
         $stmt = $con->prepare("SELECT * FROM Events,UserEvents WHERE Events.id = UserEvents.EventID AND UserEvents.userID = ?");
         $stmt->bind_param('s', $_SESSION["id"]);
