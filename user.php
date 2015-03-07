@@ -46,7 +46,7 @@
               <input type="hidden" value="'.$id.'"></input>
               <button type="submit" class="btn waves-effect waves-light">
               Unfollow '.$fbProfile['name'].'
-             <i class="mdi-content-add right"></i></button></form>';
+             <i class="mdi-content-remove right"></i></button></form>';
 
         }
         echo "<h2>Events " . $fbProfile['name'] . " is going to:</h2>";

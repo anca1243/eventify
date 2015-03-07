@@ -79,10 +79,11 @@
     echo '<li class="collection-header"><h4>Going to this event:</h4></li>';
     while ($row = $result->fetch_assoc()) {
       $name = getName($row['userID']);
-      echo '<li class="collection-item"><div>'.$name.'
-      <a href="user.php?id=\''.$row['userID'].'\'" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>';
+      echo '<li class="collection-item"><div class="plsStyleMe">
+      <p><img src="//graph.facebook.com/'.$row['userID'].'/picture" alt="" class="circle">'.$name.'
+      <a href="user.php?id=\''.$row['userID'].'\'" class="secondary-content"><i class="mdi-content-send"></i></a></p></div></li>';
     } 
-    
+  echo "</ul>";    
   echo '</div></div></div></div>'; ?>
   <?php require("style/footer.php"); ?>
   </body>
