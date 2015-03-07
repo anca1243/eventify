@@ -1,3 +1,35 @@
+.plsStyleMe p {
+  font-size: 200%;
+  color: black;
+  display: inline;
+  background-color: ;
+}
+
+
+li h4 {
+  color: black;
+}
+
+main img {
+  padding: 20px 20px 0px 20px;
+}
+.navbar p{display:inline;
+  color: white;}
+
+main {
+  padding-left: 260px;
+  background-color: #5E9DC8;
+}
+
+footer {
+  padding-left: 20px;
+}
+
+.activity-feed {
+  color: white;
+  font-size: 130%;
+}
+
 .footer footer {
   background-color: #5F6B61;
 }
@@ -91,7 +123,6 @@ nav {
  font-size:150%;
 }
 
-
 h1 { 
   color: white;
 }
@@ -108,4 +139,3 @@ h2, h3, h4, h5 {
   color: white;
   font-size: 120%;
 }
-

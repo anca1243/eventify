@@ -2,8 +2,8 @@
  <head>
   <title>Eventify!</title>
   <?php require("style/linkcss.php"); ?>
- </head> 
-
+ </head>
+  
   <!-- Easy import of header -->
   <?php require("style/header.php");
         require("database.php");
@@ -33,6 +33,7 @@
       </div><br><br>
       <h2>Start by logging in, the button is over there!<br>
       <i class='mdi-hardware-keyboard-return'></i></h2>";
+
   } else {
     //If they are logged in, show the user events happening today
     require("geoIP.php");

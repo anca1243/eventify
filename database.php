@@ -101,13 +101,6 @@
                   if (col == 2 || col == 3) {
                    return (ev1[col] == ev2[col]) ? 0 : ((Date.parse(ev1[col]) > Date.parse(ev2[col])) ? asc : -1*asc);
                   }
-                  if (col == 0) {
-                   var col1 = ev1[col].split('\">')[1];
-                   var col2 = ev2[col].split('\">')[1];
-                   col1 = (col1.substring(0,col1.length-4));
-                   col2 = (col2.substring(0,col2.length-4));
-                   return (col1 == col2) ? 0 : ((col1 > col2) ? asc : -1*asc);
-                  }
                   return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
                 });
        //Rebuuild events table
