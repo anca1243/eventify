@@ -6,7 +6,7 @@ passW = "BestTeam2014"
 print "Scraping Sheffield"
 domain = "http://www.welcometosheffield.co.uk"
 cgiAddr ="/dms-connect/search"
-searchURL = "?DMS=12&type=events"
+searchURL = "?mstat=0&townid=1241&type=events&nojs=1&srchtyp=N&dms=12"
 
 
 HTMLSource = ""
@@ -15,23 +15,21 @@ counter = 0
 wew = ""
 url = domain + cgiAddr + searchURL
 while url:
-        #print url
+        print url
 	page = urllib2.urlopen(url)
 	try:
 		HTMLSource = page.read()
-                if counter == 0:
-			wew = HTMLSource
-		else:
-			if HTMLSource == wew:
+                if counter > 4 :
+			if len(re.findall('title="View page 1"', HTMLSource)) > 0: 
 				break	
 	except:
 		pass
 	finally:
 		page.close()
 	eventURLs = re.findall('\?dms=3[^"]*', HTMLSource)
-	for i in range(0,len(eventURLs),3):
+	for i in range(0,len(eventURLs)):
                 eventURLs[i] = eventURLs[i].replace("amp;", "")
-		#print domain+cgiAddr+eventURLs[i]
+		print domain+cgiAddr+eventURLs[i]
 		try:
 			evPage = urllib2.urlopen(domain+cgiAddr+eventURLs[i])
 		except:
@@ -51,7 +49,7 @@ while url:
 		desc = re.search('Details<\/h2>(.*?)<\/p', evSource, re.S).group(0).split("<p>")[1][:-3]
 		events.append([title, desc, location[:-2] + ", Sheffield", post, date])
 	counter += 1
-	url = url + "&setpage=" + str(counter)
+	url = domain + cgiAddr + searchURL  + "&setpage=" + str(counter)
 
 def notin(table, obj):
     for i in table:
@@ -89,24 +87,27 @@ for i in events:
         date = i[4].split("-")
         unixTimes = []
         for j in date:
-                z = j.split(" ")
-                if len(j[1]) == 1:
-                  z[1] = "0"+z[1]
+		try:
+                	z = j.split(" ")
+                	if len(j[1]) == 1:
+                  		z[1] = "0"+z[1]
 
-                if len(j) < 6:
-			q = date[0].split(" ")
-			z.append(z[2])
-                        z.append(z[3])
-                j = z[0] + " " + z[1] + " " + z[2] + " " + z[3]
- 		dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%a %d %b %Y")
-		unixTimes.append(int((dt - datetime.datetime(1970,1,1)).total_seconds())) 
-        if len(unixTimes) == 1:
-		unixTimes.append(unixTimes[0])
+                	if len(j) < 6:
+				q = date[0].split(" ")
+				z.append(z[2])
+                        	z.append(z[3])
+                	j = z[0] + " " + z[1] + " " + z[2] + " " + z[3]
+ 			dt = datetime.datetime.strptime(j.replace("\r\n","").strip(), "%a %d %b %Y")
+			unixTimes.append(int((dt - datetime.datetime(1970,1,1)).total_seconds())) 
+        		if len(unixTimes) == 1:
+				unixTimes.append(unixTimes[0])
 
-        cur.execute("""INSERT INTO Events
-                    (`name`, `location`, `startDate`, `endDate`,  `description`,`postcode`,`createdBy`)
-                    VALUES (%s,%s,%s,%s,%s,%s,%s)""", 
-                    [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3], "108299645860446"])
+        		cur.execute("""INSERT INTO Events
+                    		       (`name`, `location`, `startDate`, `endDate`,  `description`,`postcode`,`createdBy`)
+                    		       VALUES (%s,%s,%s,%s,%s,%s,%s)""", 
+                    		   [i[0], i[2], str(unixTimes[0]), str(unixTimes[1]), i[1], i[3], "108299645860446"])
+		except:
+			pass
 
 db.commit()
 db.close()
