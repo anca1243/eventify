@@ -169,23 +169,32 @@
     $url .= urlencode($postcode1)."&destinations=";
     //Go through all results from the query
     $distances = array();
+    $num = 0;
     while ($row = $result->fetch_assoc()) {
         $url .= urlencode("|".$row['location']);
-        if (strlen($url) >= 2000) {
-          @$url .= "&units=imperial";
-          if ($data = (@file_get_contents($url))) {
+        $num += 1;
+        if (strlen($url) >= 1500) {
+          $url .= "&units=imperial";
+          if ($data = (file_get_contents($url))) {
             $data = json_decode($data);
             if ($data->status == "OK") 
               foreach ($data->rows[0]->elements as $dist) {
-	        if ($dist->status == "OK")
-                  @array_push($distances, $dist->distance->text);
-                else
+	        if ($dist->status == "OK") {
+		  array_push($distances, $dist->distance->text);
+                } else
                   array_push($distances, "---");
-              }
-           $url ="http://maps.googleapis.com/maps/api/
-                  distancematrix/json?origins=";
+              } if (@sizeof($data->rows[0]->elements < $num)) {
+		   for ($i = 0; $i < $num; $i++) array_push($distances, "---");
+	      }
+           $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
            $url .= urlencode($postcode1)."&destinations=";
-         }
+         }  else {
+		  echo $url;
+		  $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+                  $url .= urlencode($postcode1)."&destinations=";
+                  for ($i = 0; $i < $num; $i++) array_push($distances, "---");
+	    }
+	  $num = 0;
        }
           
         //Placeholder for distance values
@@ -193,24 +202,24 @@
 	//Add row to our results
       	array_push($results, $row);
     }
-	print_r($results);
     //Set the units to miles.
     //There's no real reason, most people just use miles
     $url .= "&units=imperial";
     $returnValues = array();
     foreach ($result as $row) {
-	   @array_push($row, $distances[0]);
-            if (no_val($maxdist)) {
+	   array_push($row, $distances[0]);
+            if (!no_val($maxdist)) {
               if ($row[0] <= $maxdist) {
-                array_push($returnValues, $row);
+                @array_push($returnValues, $row);
               }
            } else {
-             array_push($returnValues, $row);
+             @array_push($returnValues, $row);
            }
             //Delete the first element from google results
-	   @array_shift($distance);		       
+	   $distances = array_slice($distances, 1);		       
     }
     //Throw back the array of all results
+    
     return $returnValues;
   }
   //Get the list of events created by user with ID $id;
