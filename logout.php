@@ -14,7 +14,16 @@ $_SESSION['postcode'] = NULL;
 ?>
 
 <h1>Succesfully Logged out.</h1>
-<h2>You should be redirected in 3 seconds.</h2>
+<h2>You will be redirected in <span id="counter">5</span> second(s).</h2>
 <h3>If you are not, <a href='index.php'>Click here</a></h3>
-<meta http-equiv="refresh" content="3; url=index.php">
+<script type="text/javascript">
+function countdown() {
+    var i = document.getElementById('counter');
+    if (parseInt(i.innerHTML)==0) {
+        window.location = 'index.php';
+    }
+    i.innerHTML = parseInt(i.innerHTML)-1;
+}
+setInterval(function(){ countdown(); },1000);
+</script>
 

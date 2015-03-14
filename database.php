@@ -193,6 +193,7 @@
 	//Add row to our results
       	array_push($results, $row);
     }
+	print_r($results);
     //Set the units to miles.
     //There's no real reason, most people just use miles
     $url .= "&units=imperial";
