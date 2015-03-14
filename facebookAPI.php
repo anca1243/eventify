@@ -56,7 +56,8 @@
   use Facebook\GraphSessionInfo;
   use Facebook\HttpClients\FacebookStreamHttpClient;
   use Facebook\HttpClients\FacebookStream;
-  session_start();  
+  session_start(); 
+   
   //require("config.php");
   FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
   $helper = new FacebookRedirectLoginHelper($url."login.php");
@@ -64,6 +65,21 @@
     $session = $_SESSION["session"]; 
   if (!isset($session)) {
   try {
+    if ($kiosk) {
+      // If you're making app-level requests:
+      $session = FacebookSession::newAppSession();
+
+      // To validate the session:
+      try {
+        $session->validate();
+      } catch (FacebookRequestException $ex) {
+        // Session not valid, Graph API returned an exception with the reason.
+        echo $ex->getMessage();
+      } catch (\Exception $ex) {
+        // Graph API returned info, but it may mismatch the current app or have expired.
+        echo $ex->getMessage();
+      }
+  } else 
     $session = $helper->getSessionFromRedirect();
   } catch( FacebookRequestException $ex ) {
     echo $ex;
@@ -76,7 +92,7 @@
   // see if we have a session
   if ( isset( $session ) ) {
     // graph api request for user data
-    $request = new FacebookRequest( $session, 'GET', '/me' );
+    $request = new FacebookRequest( $session, 'GET', '/210675532436098' );
     $response = $request->execute();
     // get response
     $graphObject = $response->getGraphObject();
@@ -84,21 +100,23 @@
     // print data
     $userData = $graphObject->asArray();
     //Add id to array for later use
-    $_SESSION['id'] = $userData["id"];
+    if ($kiosk) {
+      $_SESSION['id'] = "210675532436098";
+    } else
+      $_SESSION['id'] = $userData["id"];
     echo '<li>
     <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
    </li>';
     echo '<li><a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
     echo '<p>Logout</p></a></li>';
     echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'"><i class="mdi-action-verified-user"></i>';
-    echo '<p>'.$userData['first_name'].'</p>';
+    echo '<p>'.$userData['name'].'</p>';
     echo '</a></div></li>';
   } else {
     // show login url
-    echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
+    echo '<a href="guestlogin.php?url=' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
   } 
-
-function fbRequest($req) {
+ function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
       echo "<<p>You must be logged in to do that.<br><br> <a href='index.php'>Go back to homepage</a></p>";
       die;

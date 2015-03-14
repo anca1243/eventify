@@ -11,6 +11,7 @@ $_SESSION['FULLNAME'] = NULL;
 $_SESSION['EMAIL'] =  NULL;
 $_SESSION['session'] = NULL;
 $_SESSION['postcode'] = NULL;
+$_SESSION['li'] = NULL;
 ?>
 
 <h1>Succesfully Logged out.</h1>
