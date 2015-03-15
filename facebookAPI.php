@@ -92,7 +92,10 @@
   // see if we have a session
   if ( isset( $session ) ) {
     // graph api request for user data
+    if ($kiosk)
     $request = new FacebookRequest( $session, 'GET', '/210675532436098' );
+    else 
+    $request = new FacebookRequest( $session, 'GET', '/me' );
     $response = $request->execute();
     // get response
     $graphObject = $response->getGraphObject();

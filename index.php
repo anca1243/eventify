@@ -38,7 +38,7 @@
     //If they are logged in, show the user events happening today
     require("geoIP.php");
     if ($kiosk) 
-      $user = fbRequest("210675532436098");
+      $user = fbRequest("/210675532436098");
     else 
       $user = fbRequest("/me");
     echo "<h2>Welcome back, ".$user['name']."</h2>\n";
