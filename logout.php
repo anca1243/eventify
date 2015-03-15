@@ -12,6 +12,7 @@ $_SESSION['EMAIL'] =  NULL;
 $_SESSION['session'] = NULL;
 $_SESSION['postcode'] = NULL;
 $_SESSION['li'] = NULL;
+$_SESSION['kiosk'] = false;
 ?>
 
 <h1>Succesfully Logged out.</h1>
@@ -23,6 +24,7 @@ function countdown() {
     if (parseInt(i.innerHTML)==0) {
         window.location = 'index.php';
     }
+     if (parseInt(i.innerHTML)>0)
     i.innerHTML = parseInt(i.innerHTML)-1;
 }
 setInterval(function(){ countdown(); },1000);

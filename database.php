@@ -175,7 +175,7 @@
         $num += 1;
         if (strlen($url) >= 1500) {
           $url .= "&units=imperial";
-          if ($data = (file_get_contents($url))) {
+          if (@$data = (file_get_contents($url))) {
             $data = json_decode($data);
             if ($data->status == "OK") 
               foreach ($data->rows[0]->elements as $dist) {
@@ -189,7 +189,6 @@
            $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
            $url .= urlencode($postcode1)."&destinations=";
          }  else {
-		  echo $url;
 		  $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
                   $url .= urlencode($postcode1)."&destinations=";
                   for ($i = 0; $i < $num; $i++) array_push($distances, "---");
@@ -207,7 +206,7 @@
     $url .= "&units=imperial";
     $returnValues = array();
     foreach ($result as $row) {
-	   array_push($row, $distances[0]);
+	   @array_push($row, $distances[0]);
             if (!no_val($maxdist)) {
               if ($row[0] <= $maxdist) {
                 @array_push($returnValues, $row);

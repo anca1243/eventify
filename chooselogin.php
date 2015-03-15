@@ -20,14 +20,15 @@
        			<h5 class="header col s12 light">Please log in with facebook using the button below</h5>
         	</div>
         	<div class="row center">
-          		<a href="" id="download-button" class="btn-large waves-effect waves-light blue">Login with Facebook</a>
+          		<a href="<?php echo $helper->getLoginUrl() ?>" 
+                         id="download-button" class="btn-large waves-effect waves-light blue">Login with Facebook</a>
         	</div>
         	<br>
         	<div class="row center">
           		<h5 class="header col s12 light">Or use our guest account</h5>
         	</div>
         	<div class="row center">
-          		<a href="" id="download-button" class="btn-large waves-effect waves-light blue">Guest account</a>
+          		<a href="guestlogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Guest account</a>
         	</div>
         	<br>
       	</div>

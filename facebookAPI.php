@@ -57,7 +57,12 @@
   use Facebook\HttpClients\FacebookStreamHttpClient;
   use Facebook\HttpClients\FacebookStream;
   session_start(); 
-   
+  if (isset($_SESSION["kiosk"])) {
+    $kiosk = $_SESSION["kiosk"];
+  } else {
+    $_SESSION["kiosk"] = false;
+    $kiosk = false;
+  } 
   //require("config.php");
   FacebookSession::setDefaultApplication($facebook_appID, $facebook_appSec);
   $helper = new FacebookRedirectLoginHelper($url."login.php");
@@ -92,7 +97,7 @@
   // see if we have a session
   if ( isset( $session ) ) {
     // graph api request for user data
-    if ($kiosk)
+    if ($kiosk == true)
     $request = new FacebookRequest( $session, 'GET', '/210675532436098' );
     else 
     $request = new FacebookRequest( $session, 'GET', '/me' );
@@ -103,7 +108,7 @@
     // print data
     $userData = $graphObject->asArray();
     //Add id to array for later use
-    if ($kiosk) {
+    if ($kiosk == true) {
       $_SESSION['id'] = "210675532436098";
     } else
       $_SESSION['id'] = $userData["id"];
@@ -117,7 +122,7 @@
     echo '</a></div></li>';
   } else {
     // show login url
-    echo '<a href="guestlogin.php?url=' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
+    //echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
