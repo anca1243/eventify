@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Eventify</title>
 
   <!-- CSS  -->
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<?php require ("style/linkcss.php"); 
+      require ("database.php"); ?>
 </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img height="50px" src="img/eventify-logo.png"></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Home</a></li>
-      </ul>
+ <?php require ("style/header.php"); ?>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-    </div>
-  </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center blue-text">Welcome to Eventify!</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">A place to find events to help you get out and about.</h5>
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center blue-text">Welcome to Eventify!</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">An easy-to-use collection of event from all over UK</h5>
+        </div>
+        <div class="row center">
+          <a href="chooselogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Getting started!</a>
+        </div>
+        <br>
       </div>
-      <div class="row center">
-        <a href="login.php" id="download-button" class="btn-large waves-effect waves-light blue">Get started!</a>
-      </div>
-      <br><br>
-
     </div>
   </div>
 
@@ -45,70 +34,41 @@
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="mdi-action-event"></i></h2>
-            <h5 class="center">Find events</h5>
-
-            <p class="light">Use our powerful search function to find the events <em>You</em> want.</p>
+            <h4 class="center">Liverpool</h4>
+            <p class="center light">Liverpool’s famous attractions include the Albert Dock, the UK’s oldest Chinatown, St. George’s Hall, the Walker Art Gallery and a Beatles-themed museum.</p>
+            <div class="row center">
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+            </div>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="mdi-social-location-city"></i></h2>
-            <h5 class="center">In your city</h5>
+            <h4 class="center">Manchester</h4>
 
-            <p class="light">Select your city and Eventify will do the rest!.</p>
+            <p class="center light">There is more to Manchester than football, music and rain. As the world’s first industrial city Manchester has a rich history and had a big impact on shaping the world we live in today.</p>
+            <div class="row center">
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+            </div>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="mdi-social-mood"></i></h2>
-            <h5 class="center">Cure your boredom!</h5>
+            <h4 class="center">Sheffield</h4>
 
-            <p class="light">No more "what do I do?" weekends, find events and get out doing things!</p>
+            <p class="center light">The Sheffield Ski Village is one of the largest artificial ski resorts in Europe. The city also has the largest theatre complex outside London and is the home of many electronic rock groups.</p>
+            <div class="row center">
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
     <br><br>
+</div>
 
-    <div class="section">
-
-    </div>
-  </div>
-
-  <footer class="page-footer blue">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">About Us</h5>
-          <p class="grey-text text-lighten-4">We are simply the best team in the world.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="about.php">About</a></li>
-          </ul>
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by Group X2
-      </div>
-    </div>
-  </footer>
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
 
   </body>
+<?php require ("style/footer.php"); ?>
 </html>
