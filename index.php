@@ -1,98 +1,114 @@
-<html>
- <head>
-  <title>Eventify!</title>
-  <?php require("style/linkcss.php"); ?>
- </head>
-  
-  <!-- Easy import of header -->
-  <?php require("style/header.php");
-        require("database.php");
-	//User can change postcode, gets redirected here with a POST value
-        if (isset($_POST['postcode']))
-          $_SESSION['postcode'] = $_POST['postcode'];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Eventify</title>
 
-	//Check if user is logged in, if not, display "welcome" page
-        if (!isset($_SESSION["session"])) {
-          echo "
-          <header>
-           <h1 class=\"welcome\">Welcome to Eventify</h1>
-          </header>
-            <div class=\"row\" id=\"splash\">
-            <div class=\"col s4\">
-             <i id=\"icon\" class=\"mdi-action-event\"></i>
-             <h3><b>Find Events...</p>
-            </div>
-           <div class=\"col s4\">
-            <i id=\"icon\" class=\"mdi-social-location-city\"></i>
-            <h3><b>In your city...</b></h3>
-           </div>
-           <div class=\"col s4\">
-            <i id=\"icon\" class=\"mdi-social-mood\"></i>
-            <h3>Cure your boredom!</b></h3>
+  <!-- CSS  -->
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img height="50px" src="img/eventify-logo.png"></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#">Home</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center blue-text">Welcome to Eventify!</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A place to find events to help you get out and about.</h5>
+      </div>
+      <div class="row center">
+        <a href="login.php" id="download-button" class="btn-large waves-effect waves-light blue">Get started!</a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="mdi-action-event"></i></h2>
+            <h5 class="center">Find events</h5>
+
+            <p class="light">Use our powerful search function to find the events <em>You</em> want.</p>
           </div>
-      </div><br><br>
-      <h2>Start by logging in, the button is over there!<br>
-      <i class='mdi-hardware-keyboard-return'></i></h2>";
+        </div>
 
-  } else {
-    //If they are logged in, show the user events happening today
-    require("geoIP.php");
-    if ($kiosk) 
-      $user = fbRequest("/210675532436098");
-    else 
-      $user = fbRequest("/me");
-    echo "<h2>Welcome back, ".$user['name']."</h2>\n";
-    $location = getLocation();
-    echo "<h4>Your location: ".$location['zipCode']."</h4>\n";
-    echo "<h4>What's been happening recently</h4>"; 
-    $con = connect();
-    $stmt = $con->prepare("SELECT * FROM `UserEvents` 
-                           INNER JOIN UserFollows 
-                           ON UserEvents.userID = ?
-                           OR (UserEvents.userID = UserFollows.User2 
-                           AND UserFollows.User1 = ?)
-                         ");
-    $stmt->bind_param("ss",$_SESSION['id'], $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $results = array();
-    while ($row = $result->fetch_assoc()) {
-         if (not_in($row, $results))
-           array_push($results, $row);
-    }    echo '<div class="activity-feed">';
-    echo '<div class="row">';
-    echo '<div class="col s8">';
-    //Going to new event
-    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
-      echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
-            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a><br>";
-    }
-    echo '</div>';
-    $con = connect();
-    $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 = ? OR User2=?;");
-    $stmt->bind_param("ss", $_SESSION['id'], $_SESSION['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $results = array();
-    while ($row = $result->fetch_assoc()) {
-     array_push($results, $row);
-    }
-    echo '<div class="col s4">';
-    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
-      echo '<br><i class="mdi-social-person-add"></i>&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<br>";
-    }
-    echo '</div>';
-  }
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="mdi-social-location-city"></i></h2>
+            <h5 class="center">In your city</h5>
 
-  function not_in($a, $b) {
-    foreach ($b as $c) {
-     if ($c['userID'] == $a['userID'])
-       if ($c['eventID'] == $a['eventID'])
-         return False;
-    }
-    return True;
-  }
- ?>
+            <p class="light">Select your city and Eventify will do the rest!.</p>
+          </div>
+        </div>
 
- <?php require("style/footer.php"); ?>
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="mdi-social-mood"></i></h2>
+            <h5 class="center">Cure your boredom!</h5>
+
+            <p class="light">No more "what do I do?" weekends, find events and get out doing things!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+
+    <div class="section">
+
+    </div>
+  </div>
+
+  <footer class="page-footer blue">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About Us</h5>
+          <p class="grey-text text-lighten-4">We are simply the best team in the world.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="about.php">About</a></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by Group X2
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
 </html>
