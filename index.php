@@ -37,7 +37,7 @@
             <h4 class="center">Liverpool</h4>
             <p class="center light">Liverpool’s famous attractions include the Albert Dock, the UK’s oldest Chinatown, St. George’s Hall, the Walker Art Gallery and a Beatles-themed museum.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city= <?php echo Cities::LIVERPOOL; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
 
             <p class="center light">There is more to Manchester than football, music and rain. As the world’s first industrial city Manchester has a rich history and had a big impact on shaping the world we live in today.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::MANCHESTER; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
             <p class="center light">The Sheffield Ski Village is one of the largest artificial ski resorts in Europe. The city also has the largest theatre complex outside London and is the home of many electronic rock groups.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=71409503111" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::SHEFFIELD; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>
