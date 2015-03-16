@@ -170,7 +170,7 @@
     //Get thbe user's location for distance calculations
     $postcode1 = urlencode(getLocation()['zipCode']);
     //Prepare the google maps API 
-    $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+    $url ="https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
     $url .= urlencode($postcode1)."&destinations=";
     //Go through all results from the query
     $distances = array();
@@ -191,10 +191,10 @@
               } if (@sizeof($data->rows[0]->elements < $num)) {
 		   for ($i = 0; $i < $num; $i++) array_push($distances, "---");
 	      }
-           $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+           $url ="https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
            $url .= urlencode($postcode1)."&destinations=";
          }  else {
-		  $url ="http://maps.googleapis.com/maps/api/distancematrix/json?origins=";
+		  $url ="https://maps.googleapis.com/maps/api/distancematrix/json?origins=";
                   $url .= urlencode($postcode1)."&destinations=";
                   for ($i = 0; $i < $num; $i++) array_push($distances, "---");
 	    }
