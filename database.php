@@ -73,7 +73,12 @@
      else
        echo '<td></td>'; 
    echo "<td>";
-   if (!goingToEvent($row['id'])) echo "<form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
+   if (!goingToEvent($row['id']))
+     if (!isset($_SESSION['id']))
+        echo "<form method='post' action='chooselogin.php'><input name='id' type='hidden' value='".$row['id']."'>
+                                        <button type='submit' action='userAddEvent.php' class='btn waves-effect waves-light'><i class='mdi-social-person-add'></button>";
+
+     else echo "<form method='post' action='userAddEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
                                         <button type='submit' action='userAddEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-add'></button>";
    else echo "<form method='post' action='userRmEvent.php'><input name='id' type='hidden' value='".$row['id']."'>
               <button type='submit' action='userRmEvent.php' class='btn waves-effect waves-light'><i class='mdi-content-remove'></button>";
@@ -240,6 +245,7 @@
   }
 
   function goingToEvent($id) {
+    if (!isset($_SESSION['id'])) $id = -1;
     $con = connect();
     $stmt = $con->prepare("SELECT * FROM UserEvents WHERE EventID =? AND UserID = ?;");
     $stmt->bind_param("is", $id, $_SESSION['id']);

@@ -112,17 +112,21 @@
       $_SESSION['id'] = "210675532436098";
     } else
       $_SESSION['id'] = $userData["id"];
-    echo '<li>
-    <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city="><i class="mdi-action-search" style="vertical-align:middle;"></i><p>Search</p></a>
-   </li>';
-    echo '<li><a href="logout.php"><i class="mdi-navigation-close" style="vertical-align:middle;"></i>';
-    echo '<p>Logout</p></a></li>';
-    echo '<li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'"><i class="mdi-action-verified-user"></i>';
-    echo '<p>'.$userData['name'].'</p>';
-    echo '</a></div></li>';
+    $nav_buttons = '
+    <li>
+     <p>
+     <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">
+     Find Events</p></a>
+   </li>
+    <li>
+     <p><a href="logout.php">Logout</p></a>
+   </li>
+    <li><p><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
+     '.$userData['name'].'\'s Profile</p>
+    </a></div></li>';
   } else {
-    // show login url
-    //echo '<a href="' . $helper->getLoginUrl() . '"><i class="mdi-social-person" style="vertical-align:middle;"></i><p>Login</p></a>';
+    //show login url
+    $nav_buttons = '<li><p><a href="chooselogin.php">Login</p></a></li>';
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {

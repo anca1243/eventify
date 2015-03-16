@@ -19,7 +19,7 @@
           <h5 class="header col s12 light">An easy-to-use collection of event from all over UK</h5>
         </div>
         <div class="row center">
-          <a href="chooselogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Getting started!</a>
+          <a href="chooselogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Get started!</a>
         </div>
         <br>
       </div>

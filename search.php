@@ -6,9 +6,7 @@
 
   <body>
     <?php require("style/header.php");
-          require("database.php"); 
-          if (!isset($_SESSION['id'])) 
-            header("location: index.php");
+          require("database.php");          
     ?>
 
 
