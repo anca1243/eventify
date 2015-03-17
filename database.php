@@ -24,36 +24,38 @@
 
   function displayResults($a) {
     //Make all rows clickable
-    echo "<script>$(document).ready(function() {
-          $('#searchResults tr').click(function() {
-          var href = $(this).find('a').attr('href');
-          if(href) {
-            window.location = href;
-          }
-          });});
-          var asc0 = 1;
-          var asc1 = 1;
-          var asc2 = 1;
-          var asc3 = 1;
-          var asc4 = 1;
-          var asc5 = 1;
-          </script>";
-
     //Runs through the search results and displays them
+
     echo "<h6 header col s12 light>Distance from ".getLocation()['zipCode']."&nbsp&nbsp<a href='postcode.php'>Not your location?</a></h6>";
     //Make th elements clickable for sorting
-    echo "<table class='hoverable' id='searchResults'>
+    echo " <div id='pager1' class='pager'>
+         <form>
+                <img src=\"img/ic_chevron_left_grey600_18dp.png\" 
+                class=\"first\"/>
+                <img src=\"img/ic_arrow_back_grey600_18dp.png\" 
+                class=\"prev\"/
+                <input type=\"text\" class=\"pagedisplay\"/>
+                <img src=\"img/ic_arrow_forward_grey600_18dp.png\" 
+                class=\"next\"/>
+                <img src=\"img/ic_chevron_right_grey600_18dp.png\" 
+                class=\"last\"/>
+                <select class=\"pagesize\">
+                        <option selected=\"selected\"  
+                        value=\"10\">10</option>
+                        <option value=\"20\">20</option>
+                        <option value=\"30\">30</option>
+                        <option  value=\"40\">40</option>
+                </select>
+        </form>
+         </div>
+           <table class='tablesorter hoverable' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='name' onclick =\"sort_table(searchResultsBody, 0, asc0);
-              asc0 *= -1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Title<i class='mdi-content-sort'></i></th>
-              <th data-field='sdate' onclick =\"sort_table(searchResultsBody, 2, asc2); 
-              asc0 = 1; asc2 *= -1; asc3 = 1; asc4 = 1; asc5 = 1;\" >Start Date<i class='mdi-content-sort'></i></th>
-              <th data-field='edate' onclick =\"sort_table(searchResultsBody, 3, asc3); 
-              asc0 = 1; asc2 = 1; asc3 *= -1; asc4 = 1; asc5 = 1;\">End Date<i class='mdi-content-sort'></i></th>
+              <th data-field='name'>Title<i class='mdi-content-sort'></i></th>
+              <th data-field='sdate' >Start Date<i class='mdi-content-sort'></i></th>
+              <th data-field='edate'>End Date<i class='mdi-content-sort'></i></th>
               <th data-field='loc'>Location</th> 
-              <th data-field='dist' onclick =\"sort_table(searchResultsBody, 5, asc5); 
-              asc0 = 1; asc2 = 1; asc3 = 1; asc4 = 1; asc5 *= -1;\">Distance<i class='mdi-content-sort'></i></th>
+              <th data-field='dist'>Distance<i class='mdi-content-sort'></i></th>
               <th data-field='going'>Add/Remove</th>";
     echo "</tr>
         </thead>
@@ -87,38 +89,24 @@
    }
    echo "</tbody>
          </table>
-   <script>
-    function sort_table(tbody, col, asc)
-     {
-       var rows = tbody.rows, events = new Array();
-       //Fill the array
-       for(var event = 0; event < rows.length; event++)
-       {
-         events[event] = new Array();
-         var info = rows[event].cells;
-         for(var infopart = 0; infopart < info.length; infopart++)
-         {
-           events[event][infopart] = info[infopart].innerHTML;
-         }
-       }
-       events.sort(function(ev1, ev2)
-                {
-                  if (col == 2 || col == 3) {
-                   return (ev1[col] == ev2[col]) ? 0 : ((Date.parse(ev1[col]) > Date.parse(ev2[col])) ? asc : -1*asc);
-                  }
-                  return (ev1[col] == ev2[col]) ? 0 : ((ev1[col] > ev2[col]) ? asc : -1*asc);
-                });
-       //Rebuuild events table
-       for(var event = 0; event < rows.length; event++)
-       {
-         events[event] = '<td>' + events[event].join('</td><td>')+'</td>';
-       }
-       tbody.innerHTML = '<tr>' + events.join('</tr><tr>')+'</tr>'; 
-     }
- 
-   </script>";
-  }
+         <div id='pager' class='pager'>
+         <form>
 
+		<img src=\"img/ic_chevron_left_grey600_18dp.png\" class=\"first\"/>
+		<img src=\"img/ic_arrow_back_grey600_18dp.png\" class=\"prev\"/
+		<input type=\"text\" class=\"pagedisplay\"/>
+		<img src=\"img/ic_arrow_forward_grey600_18dp.png\" class=\"next\"/>
+		<img src=\"img/ic_chevron_right_grey600_18dp.png\" class=\"last\"/>
+		<select class=\"pagesize\">
+			<option selected=\"selected\"  value=\"10\">10</option>
+			<option value=\"20\">20</option>
+			<option value=\"30\">30</option>
+			<option  value=\"40\">40</option>
+		</select>
+	</form>
+         </div>
+         </div>";
+}
   //Function for description field - splits them into individual terms
   function getTerms($a) {
     //Split $a on spaces

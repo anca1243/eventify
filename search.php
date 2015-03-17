@@ -103,16 +103,21 @@
       </div>  
      </div> <!-- End of results -->   
     </div>
-  <?php require("style/footer.php"); ?>
-  </body>
-
-  <script>
+     <script>
      $(function() {
       $( ".datepicker" ).pickadate();
      });
       $(document).ready(function() {
        $('select').material_select();
+       $("table") 
+       .tablesorter({widthFixed: true, widgets: ['zebra']}) 
+       .tablesorterPager({container: $(".pager")});
+ 
      });
+ </script>
+
+  <?php require("style/footer.php"); ?>
+  </body>
          
  </script>
 
