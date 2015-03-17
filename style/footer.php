@@ -26,7 +26,7 @@
 </body>
    <!--  Scripts-->
   
-  <script src="../jquery-1.11.2.js"></script>
+  <script src="js/jquery-1.11.2.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script>
@@ -41,8 +41,8 @@
  
      });
  </script>
- <script type="text/javascript" src="../jquery.tablesorter.js"></script>
-  <script type="text/javascript" src="../jquery.browser.js"></script>
+ <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+  <script type="text/javascript" src="js/jquery.browser.js"></script>
 
-  <script type="text/javascript" src="../jquery.tablesorter.pager.js"></script>
+  <script type="text/javascript" src="js/jquery.tablesorter.pager.js"></script>
 </html>
