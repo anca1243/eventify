@@ -40,7 +40,7 @@
           </script>";
 
     //Runs through the search results and displays them
-    echo "<h5>Distance from ".getLocation()['zipCode']."&nbsp&nbsp<a href='postcode.php'>Not your location?</a></h5>";
+    echo "<h6 header col s12 light>Distance from ".getLocation()['zipCode']."&nbsp&nbsp<a href='postcode.php'>Not your location?</a></h6>";
     //Make th elements clickable for sorting
     echo "<table class='hoverable' id='searchResults'>
             <thead>

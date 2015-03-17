@@ -21,7 +21,6 @@
         <div class="row center">
           <a href="chooselogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Get started!</a>
         </div>
-        <br>
       </div>
     </div>
   </div>
