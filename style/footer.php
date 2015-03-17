@@ -25,7 +25,24 @@
   </footer>
 
    <!--  Scripts-->
+  
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+  <script>
+     $(function() {
+      $( ".datepicker" ).pickadate();
+     });
+      $(document).ready(function() {
+       $('select').material_select();
+       $("table") 
+       .tablesorter({widthFixed: true, widgets: ['zebra']}) 
+       .tablesorterPager({container: $(".pager")});
  
+     });
+ </script>
+ <script type="text/javascript" src="../jquery.tablesorter.js"></script>
+  <script type="text/javascript" src="../jquery.browser.js"></script>
+
+  <script type="text/javascript" src="../jquery.tablesorter.pager.js"></script>
+
