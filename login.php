@@ -6,10 +6,30 @@
  <body>
   <!-- Easy import of header -->
   <?php require("style/header.php"); ?>
-  <h1>Logged in!</h1>
-  <h2>You will be redirected in <span id="counter">5</span> second(s).</h2>
-  <h3>If you don't get redirected, <a href="index.php">Click here</a></h3>
+  
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center blue-text">Successfully logged in!</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">You will be redirected in <span id="counter">5</span> seconds</h5>
+        </div>
+
+        <div class="row center progress">
+            <div class="indeterminate"></div>
+        </div>
+        
+        <div class="row center">
+          <h6 class="header col s12 light">If you don't get redirected, <a href="index.php">Click here</a></h6>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+
  </body>
+ <?php require ("style/footer.php"); ?>
  <script type="text/javascript">
 function countdown() {
     var i = document.getElementById('counter');
