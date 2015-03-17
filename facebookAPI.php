@@ -1,4 +1,4 @@
-<html>
+
 <!--
 ##############################################################################
 #                                                                            #
@@ -114,19 +114,19 @@
       $_SESSION['id'] = $userData["id"];
     $nav_buttons = '
     <li>
-     <p>
+     <h4>
      <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">
-     Find Events</p></a>
+     Find Events</h4></a>
    </li>
     <li>
-     <p><a href="logout.php">Logout</p></a>
+     <h4><a href="logout.php">Logout</h4></a>
    </li>
-    <li><p><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
-     '.$userData['name'].'\'s Profile</p>
+    <li><h4><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
+     '.$userData['name'].'\'s Profile</h4>
     </a></div></li>';
   } else {
     //show login url
-    $nav_buttons = '<li><p><a href="chooselogin.php">Login</p></a></li>';
+    $nav_buttons = '<li><h4><a href="chooselogin.php">Login</h4></a></li>';
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
@@ -142,4 +142,4 @@
 }
 
 ?>
-</html>
+

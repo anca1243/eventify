@@ -9,7 +9,7 @@
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.php" class="brand-logo"><img height="50px" src="img/eventify-logo.png"></a>
       <ul class="right hide-on-med-and-down">
-        <li><p><a href="index.php">Home</a></p></li>
+        <li><h4><a href="index.php">Home</a></h4></li>
         <?php echo $nav_buttons; ?>
       </ul>
 

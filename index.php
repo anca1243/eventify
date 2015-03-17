@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Eventify</title>
+  <title>Eventify!</title>
 
   <!-- CSS  -->
 <?php require ("style/linkcss.php"); 
       require ("database.php"); ?>
 </head>
 <body>
- <?php require ("style/header.php"); ?>
-
+<?php require ("style/header.php"); ?>
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
