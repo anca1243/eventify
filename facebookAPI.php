@@ -94,7 +94,7 @@
   }
   }
   // see if we have a session
-  if ( isset( $session ) ) {
+  if ( isset( $session) ) {
     // graph api request for user data
     if ($kiosk == true)
     $request = new FacebookRequest( $session, 'GET', '/210675532436098' );
@@ -121,15 +121,15 @@
      <h4><a href="logout.php">Logout</h4></a>
    </li>
     <li><h4><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
-     '.$userData['name'].'\'s Profile</h4>
-    </a></div></li>';
+     '.$userData['name'].'\'s Profile
+    </a></div></h4></li>';
   } else {
     //show login url
     $nav_buttons = '<li><h4><a href="chooselogin.php">Login</h4></a></li>';
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
-      echo "<<p>You must be logged in to do that.<br><br> <a href='index.php'>Go back to homepage</a></p>";
+      echo "<p>You must be logged in to do that.<br><br> <a href='index.php'>Go back to homepage</a></p>";
       die;
   } else {
       $session = $_SESSION['session'];
@@ -141,4 +141,5 @@
 }
 
 ?>
+
 

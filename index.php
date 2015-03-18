@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php
+	function not_in($a, $b) {
+          foreach ($b as $c) {
+            if ($c['userID'] == $a['userID'])
+              if ($c['eventID'] == $a['eventID'])
+                return False;
+          }
+          return True;
+         }
+  ?>
+
   <title>Eventify!</title>
 
   <!-- CSS  -->
@@ -13,13 +24,74 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center blue-text">Welcome to Eventify!</h1>
-        <div class="row center">
-          <h5 class="header col s12 light">An easy-to-use collection of event from all over UK</h5>
-        </div>
-        <div class="row center">
-          <a href="chooselogin.php" id="download-button" class="btn-large waves-effect waves-light blue">Get started!</a>
-        </div>
+       	 <?php
+		if (isset($_SESSION['id'])) {
+			$id = $_SESSION['id'];
+			//Display Logged in homepage
+			echo  '<h1 class="header center blue-text">
+				Welcome Back!
+			       </h1>
+                               <div class="row center">
+                                <h5 class="header col s12 light">
+				What\'s been happening recently?
+				</h5>
+				<div class="row">
+					<div class="col s6">';
+			$con = connect();
+    			$stmt = $con->prepare("SELECT * 
+					       FROM `UserEvents` 
+                           		       INNER JOIN UserFollows 						  ON UserEvents.userID = ?
+                           OR (UserEvents.userID = UserFollows.User2 
+                           AND UserFollows.User1 = ?)
+                         ");
+                        $stmt->bind_param("ss",
+                                          $id,
+                                          $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $results = array();
+                        while ($row = $result->fetch_assoc()) {
+                        if (not_in($row, $results))
+                          array_push($results, $row);
+                        }
+			foreach (array_reverse(
+					array_slice(
+						$results, 
+						sizeof($results)-5)) 				      as $row) {
+    echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
+            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a><br>";
+    }
+				echo'	</div>
+					<div class="col s6">';
+		
+	$con = connect();
+    $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 = ? OR User2=?;");
+    $stmt->bind_param("ss", $id, $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $results = array();
+    while ($row = $result->fetch_assoc()) {
+     array_push($results, $row);
+    }
+    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
+      echo '<br><i class="mdi-social-person-add"></i>&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<br><br>";
+    }
+ 			echo '	</div>
+				</div>
+                               </div>
+                               <div class="row center">';
+		} else{
+			//Display welcome page
+			echo  '<h1 class="header center blue-text">Welcome to Eventify!</h1>
+		               <div class="row center">
+          			<h5 class="header col s12 light">An easy-to-use collection of event from all over UK</h5>
+        		       </div>
+        		       <div class="row center">
+				<a href="chooselogin.php" id="download-button" 
+				class="btn-large waves-effect waves-light blue">Get started!</a>';
+		}
+        ?>
+	</div>
       </div>
     </div>
   </div>

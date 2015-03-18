@@ -14,7 +14,7 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="index.php">Home</a></li>
+        <li><h4><a href="index.php">Home</a></h4></li>
         <?php echo $nav_buttons; ?>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>

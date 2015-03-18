@@ -59,15 +59,15 @@
         }
         else if (!following($id)) {
         echo '<div class ="container">
-              <form action="unfollow.php" method="post">
-              <input type="hidden" value="'.$id.'"></input>
+              <form action="follow.php" method="post">
+              <input name="id" type="hidden" value="'.$id.'"></input>
               <button type="submit" class="btn waves-effect waves-light">
               Follow '.$fbProfile['name'].'
              <i class="mdi-content-add right"></i></button></form>
              </div>';
         } else {
         echo '<div class="container">
-              <form action="follow.php" method="post">
+              <form action="unfollow.php" method="post">
               <input type="hidden" value="'.$id.'"></input>
               <button type="submit" class="btn waves-effect waves-light">
               Unfollow '.$fbProfile['name'].'
@@ -83,7 +83,7 @@
                   <div class="col s12">';
                     $con = connect();
                     $stmt = $con->prepare("SELECT * FROM Events,UserEvents WHERE Events.id = UserEvents.EventID AND UserEvents.userID = ?");
-                    $stmt->bind_param('s', $_SESSION["id"]);
+                    $stmt->bind_param('s', $id);
                     $stmt->execute();     
                     $result = $stmt->get_result(); 
                     $results = array();
