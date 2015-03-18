@@ -58,8 +58,8 @@
 					array_slice(
 						$results, 
 						sizeof($results)-5)) 				      as $row) {
-    echo '<br><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
-            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a><br>";
+    echo '<p class="left-align"><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
+            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a></p>";
     }
 				echo'	</div>
 					<div class="col s6">';
@@ -74,12 +74,15 @@
      array_push($results, $row);
     }
     foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
-      echo '<br><i class="mdi-social-person-add"></i>&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<br><br>";
+      echo '<p class="right-align">&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<i class=\"mdi-social-person-add\"></i>  </p>";
     }
  			echo '	</div>
 				</div>
                                </div>
-                               <div class="row center">';
+                               <div class="row center">
+                                <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=" id="download-button" 
+                                class="btn-large waves-effect waves-light blue">Find Events!</a>';
+
 		} else{
 			//Display welcome page
 			echo  '<h1 class="header center blue-text">Welcome to Eventify!</h1>
@@ -107,7 +110,7 @@
             <h4 class="center">Liverpool</h4>
             <p class="center light">Liverpool’s famous attractions include the Albert Dock, the UK’s oldest Chinatown, St. George’s Hall, the Walker Art Gallery and a Beatles-themed museum.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city= <?php echo Cities::LIVERPOOL; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city= <?php echo Cities::LIVERPOOL; ?>#content" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>
@@ -118,7 +121,7 @@
 
             <p class="center light">There is more to Manchester than football, music and rain. As the world’s first industrial city Manchester has a rich history and had a big impact on shaping the world we live in today.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::MANCHESTER; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::MANCHESTER; ?>#content" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>
@@ -129,7 +132,7 @@
 
             <p class="center light">The Sheffield Ski Village is one of the largest artificial ski resorts in Europe. The city also has the largest theatre complex outside London and is the home of many electronic rock groups.</p>
             <div class="row center">
-              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::SHEFFIELD; ?>" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
+              <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=<?php echo Cities::SHEFFIELD; ?>#content" id="download-button" class="btn waves-effect waves-light blue">Look for events!</a>
             </div>
           </div>
         </div>

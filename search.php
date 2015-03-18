@@ -26,13 +26,12 @@
         </div>
        </div>
      </div>
-
       <div class="container">
         <div class="section">
           <div class="row">
             <div class="col s12"><br>
               <div id="searchForm" class="eventForm">
-               <form id="search" action="search.php" method="get">
+               <form id="search" action="search.php#content" method="get">
                 <div class="row">
                 <div class="input-field col s6">
                   <label for="evtitle">Name of Event</label>
@@ -82,8 +81,12 @@
         </div>
       </div>
     </div>
-
+      <br><br><br><br><br>
       <div id="content" class="container">
+      <button  class="btn waves-effect waves-light"
+               onclick="$('#index-banner').goTo();">
+	Search for something else
+      </button>
       <div class="row">
 
       <div class="col s12">
@@ -118,7 +121,17 @@
 
   <?php require("style/footer.php"); ?>
   </body>
-         
+ <script>
+   (function($) {
+    $.fn.goTo = function() {
+        $('html, body').animate({
+            scrollTop: $(this).offset().top + 'px'
+        }, 'fast');
+        return this; // for chaining...
+    }
+  })(jQuery); 
+  
+  $(document).ready(function(){$(window.location.hash).goTo();});       
  </script>
 
 </html>
