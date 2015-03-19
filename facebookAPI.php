@@ -114,16 +114,16 @@
        
       $nav_buttons = '
       <li>
-     <h4>
+     
      <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">
-     Find Events</h4></a>
+     Find Events</a>
    </li>
     <li>
-     <h4><a href="logout.php">Logout</h4></a>
+     <a href="logout.php">Logout</a>
    </li>
-    <li><h4><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
+    <li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
      '.$userData['name'].'\'s Profile
-    </a></div></h4></li>';
+    </a></div></li>';
       $mobile_nav_buttons = '
       <li class="no-padding">
           <ul class="collapsible collapsible-accordion">
@@ -147,9 +147,9 @@
     </a></div></li>';
   } else {
     //show login url
-    $desktop_nav_buttons = '<li>
+    $nav_buttons = '<li>
            <a href="chooselogin.php">Login</a></li>';
-    $mobile_nav_buttons = $desktop_nav_buttons;
+    $mobile_nav_buttons = $nav_buttons;
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {
