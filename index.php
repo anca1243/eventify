@@ -34,9 +34,8 @@
                                <div class="row center">
                                 <h5 class="header col s12 light">
 				What\'s been happening recently?
-				</h5>
-				<div class="row">
-					<div class="col s6">';
+				</h5>';
+				
 			$con = connect();
     			$stmt = $con->prepare("SELECT * 
 					       FROM `UserEvents` 
@@ -54,17 +53,9 @@
                         if (not_in($row, $results))
                           array_push($results, $row);
                         }
-			foreach (array_reverse(
-					array_slice(
-						$results, 
-						sizeof($results)-5)) 				      as $row) {
-    echo '<p class="left-align"><i class="mdi-hardware-keyboard-tab"></i>&nbsp&nbsp'.getName($row['userID']).' '.
-            ((getName($row['userID']) == "You")?"are":"is").' going to <a href="event.php?id='.$row['eventID'].'">'.getEvent($row['eventID'])['name']."</a></p>";
-    }
-				echo'	</div>
-					<div class="col s6">';
-		
-	$con = connect();
+			$goingTo =  array_reverse($results); 						
+	
+    $con = connect();
     $stmt = $con->prepare("SELECT * FROM UserFollows WHERE User1 = ? OR User2=?;");
     $stmt->bind_param("ss", $id, $id);
     $stmt->execute();
@@ -73,12 +64,37 @@
     while ($row = $result->fetch_assoc()) {
      array_push($results, $row);
     }
-    foreach (array_reverse(array_slice($results, sizeof($results)-10)) as $row) {
-      echo '<p class="right-align">&nbsp&nbsp'.getName($row['User1'])." followed ".getName($row['User2'])."<i class=\"mdi-social-person-add\"></i>  </p>";
+    $follows =  array_reverse($results);
+    for ($i = 0; $i < 5; $i++) {
+      echo '<div class="row">';
+      echo '<div class="col s6">';
+      echo '<p class="left-align">';
+      if (@$goingTo[$i]['userID'] != NULL) {
+      $uID = $goingTo[$i]['userID'];
+      echo '<i class="mdi-hardware-keyboard-tab"></i>
+            &nbsp&nbsp'.getName($uID).' '.
+            ((getName($uID) == "You")?"are":"is").' 
+            going to <a href="event.php?id='.$goingTo[$i]['eventID']
+	    .'">'.getEvent($goingTo[$i]['eventID'])['name']."</a>";
+      }
+      echo '</p>';
+      echo '</div>';
+      echo '<div class="col s6">';
+      echo '<p class="right-align">';
+      if (@$follows[$i]['User1'] != NULL) {
+        $row = $follows[$i];
+        echo  getName($row['User1'])." followed ".
+              getName($row['User2']).
+              "&nbsp&nbsp
+              <i class=\"mdi-social-person-add\"></i></p>";
+      }
+      echo '</p>';
+      echo '</div>';
+      echo '</div>';
     }
- 			echo '	</div>
-				</div>
-                               </div>
+ 
+	echo '</div>
+              </div>
                                <div class="row center">
                                 <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=" id="download-button" 
                                 class="btn-large waves-effect waves-light blue">Find Events!</a>';

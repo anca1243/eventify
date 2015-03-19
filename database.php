@@ -263,8 +263,8 @@
 
   function getName($id) {
     if ($id == $_SESSION['id']) return "You";
-    else
-      return "<a href ='user.php?id=\"{$id}\"'>".fbRequest($id)['name']."</a>";
+    else if ($id != NULL)
+      return "<a href ='user.php?id=\"{$id}\"'>".fbRequest("/".$id)['name']."</a>";
   }
 
   ?>
