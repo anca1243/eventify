@@ -81,8 +81,9 @@
         </div>
       </div>
     </div>
-      <br><br><br><br><br>
+      <?php for($i=0;$i<=20;$i++) echo "<br>"; ?>
       <div id="content" class="container">
+     
       <button  class="btn waves-effect waves-light"
                onclick="$('#index-banner').goTo();">
 	Search for something else

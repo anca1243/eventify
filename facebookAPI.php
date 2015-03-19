@@ -118,12 +118,13 @@
      <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">
      Find Events</a>
    </li>
-    <li>
-     <a href="logout.php">Logout</a>
-   </li>
     <li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
      '.$userData['name'].'\'s Profile
-    </a></div></li>';
+    </a></div></li>
+     <li>
+     <a href="logout.php">Logout</a>
+   </li>
+';
       $mobile_nav_buttons = '
       <li class="no-padding">
           <ul class="collapsible collapsible-accordion">
@@ -139,12 +140,13 @@
             </li>
           </ul>
          </li>
-         <li>
+    <li><div id="fbpicture"><a  class="waves-effect waves-teal" href="user.php?id=\''.$userData['id'].'\'">
+     '.$userData['name'].'\'s Profile
+    </a></div></li>
+    <li>
      <a href="logout.php">Logout</a>
    </li>
-    <li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
-     '.$userData['name'].'\'s Profile
-    </a></div></li>';
+';
   } else {
     //show login url
     $nav_buttons = '<li>

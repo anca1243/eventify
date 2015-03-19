@@ -28,8 +28,20 @@
 
     echo "<h6 header col s12 light>Distance from ".getLocation()['zipCode']."&nbsp&nbsp<a href='postcode.php'>Not your location?</a></h6>";
     //Make th elements clickable for sorting
-    echo " <div id='pager1' class='pager'>
+    echo " <br><br><div id='pager1' class='pager'>
          <form>
+               <div class='row'>
+                 <div class='col s2'>Results Per Page:</div>
+                 <div class='col s2'>
+                <select class=\"pagesize\">
+                        <option selected=\"selected\"  
+                        value=\"10\">10</option>
+                        <option value=\"20\">20</option>
+                        <option value=\"30\">30</option>
+                        <option  value=\"40\">40</option>
+                </select>
+                </div>
+	   	</div>
                 <img src=\"img/ic_chevron_left_grey600_18dp.png\" 
                 class=\"first\"/>
                 <img src=\"img/ic_arrow_back_grey600_18dp.png\" 
@@ -39,23 +51,17 @@
                 class=\"next\"/>
                 <img src=\"img/ic_chevron_right_grey600_18dp.png\" 
                 class=\"last\"/>
-                <select class=\"pagesize\">
-                        <option selected=\"selected\"  
-                        value=\"10\">10</option>
-                        <option value=\"20\">20</option>
-                        <option value=\"30\">30</option>
-                        <option  value=\"40\">40</option>
-                </select>
+
         </form>
          </div>
-           <table class='tablesorter hoverable' id='searchResults'>
+           <table class='tablesorter hoverable striped ' id='searchResults'>
             <thead>
              <tr>
-              <th data-field='name'>Title<i class='mdi-content-sort'></i></th>
-              <th data-field='sdate' >Start Date<i class='mdi-content-sort'></i></th>
-              <th data-field='edate'>End Date<i class='mdi-content-sort'></i></th>
+              <th data-field='name'>Title</th>
+              <th data-field='sdate' >Start Date</th>
+              <th data-field='edate'>End Date</th>
               <th data-field='loc'>Location</th> 
-              <th data-field='dist'>Distance<i class='mdi-content-sort'></i></th>
+              <th data-field='dist'>Distance</th>
               <th data-field='going'>Add/Remove</th>";
     echo "</tr>
         </thead>
