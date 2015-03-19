@@ -111,8 +111,9 @@
       $_SESSION['id'] = "210675532436098";
     } else
       $_SESSION['id'] = $userData["id"];
-    $nav_buttons = '
-    <li>
+       
+      $nav_buttons = '
+      <li>
      <h4>
      <a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">
      Find Events</h4></a>
@@ -123,9 +124,32 @@
     <li><h4><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
      '.$userData['name'].'\'s Profile
     </a></div></h4></li>';
+      $mobile_nav_buttons = '
+      <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li><a class="collapsible-header  
+             waves-effect waves-teal">Find Events</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=&city=">Search All</a></li>
+                  <li><a href="search.php?evtitle=&evdate=&evpostcode=&evdesc=&maxdist=10&city=">Near Me</a></li>
+                  
+                </ul>
+              </div>
+            </li>
+          </ul>
+         </li>
+         <li>
+     <a href="logout.php">Logout</a>
+   </li>
+    <li><div id="fbpicture"><a href="user.php?id=\''.$userData['id'].'\'">
+     '.$userData['name'].'\'s Profile
+    </a></div></li>';
   } else {
     //show login url
-    $nav_buttons = '<li><h4><a href="chooselogin.php">Login</h4></a></li>';
+    $desktop_nav_buttons = '<li>
+           <a href="chooselogin.php">Login</a></li>';
+    $mobile_nav_buttons = $desktop_nav_buttons;
   } 
  function fbRequest($req) {
   if (!isset($_SESSION['session'])) {

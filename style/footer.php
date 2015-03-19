@@ -25,7 +25,7 @@
   </footer>
 </body>
    <!--  Scripts-->
-  
+   <!--<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
   <script src="js/jquery-1.11.2.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
@@ -38,7 +38,9 @@
        $("table") 
        .tablesorter({widthFixed: true, widgets: ['zebra']}) 
        .tablesorterPager({container: $(".pager")});
- 
+       $('.collapsible').collapsible({
+        accordion : false }
+       );
      });
  </script>
  <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
