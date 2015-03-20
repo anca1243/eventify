@@ -33,7 +33,7 @@
  <script type="text/javascript">
 function countdown() {
     var i = document.getElementById('counter');
-    if (parseInt(i.innerHTML)==0) {
+    if (parseInt(i.innerHTML)==1) {
         window.location = 'index.php';
     }
     if (parseInt(i.innerHTML)>0) 
