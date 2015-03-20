@@ -9,6 +9,7 @@ function getLocation() {
   $locations = $ipLite->getCity($_SERVER['REMOTE_ADDR']);
   //Detect errors (does not handle)
   $errors = $ipLite->getError();
+  print_r($errors);
   //See if the user has manually set their postcode
   if (isset($_SESSION['postcode']))
     $locations['zipCode'] = $_SESSION['postcode'];
