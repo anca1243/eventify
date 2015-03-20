@@ -174,7 +174,11 @@
         $num += 1;
         if (strlen($url) >= 1500) {
           $url .= "&units=imperial";
-          if (@$data = (file_get_contents($url))) {
+          $google = curl_init($url);
+          curl_setopt($google, CURLOPT_RETURNTRANSFER, true);
+          $data = curl_exec($google);
+          curl_close($google);
+          if ($data) {
             $data = json_decode($data);
             if ($data->status == "OK") 
               foreach ($data->rows[0]->elements as $dist) {
