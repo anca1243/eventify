@@ -16,6 +16,8 @@ function getLocation() {
        $locations["zipCode"] = $l;
   }
 }
+  if (!isset($locations["zipCode"]))
+    $locations["zipCode"] = "M13 9PL";
   //See if the user has manually set their postcode
   if (isset($_SESSION['postcode']))
     $locations['zipCode'] = $_SESSION['postcode'];
